@@ -1,0 +1,18 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editor and IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local project data (a real novel project, not the plugin itself)
+# Uncomment if you keep working projects alongside the plugin source.
+# novels/
+# *.local.md
+
+# Secrets
+.env
+.env.*
