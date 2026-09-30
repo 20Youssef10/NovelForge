@@ -142,3 +142,38 @@ Never optimise for more prose. Optimise for meaningful narrative, and report unr
 
 ## Licence
 MIT — see [LICENSE](LICENSE). Copyright (c) 2026 ShinZero.
+
+## Development
+
+The repository validates itself. Run the checks before opening a pull request:
+
+```bash
+python3 scripts/validate.py                # offline checks
+python3 scripts/validate.py --schema       # also fetch the live Agent Plugins schema
+python3 scripts/validate.py --strict       # treat warnings as failures
+```
+
+CI runs the same validator on every push and pull request.
+
+### What the validator enforces
+
+| Area | Checks |
+| --- | --- |
+| Layout | Discovery symlinks present and resolving; `LICENSE` and `README` exist |
+| Agent Skills spec | `name` pattern, length, matches directory; description present and within limits; line count; unknown frontmatter keys; body opens with a heading |
+| **Skill substance** | Body above a byte floor, and adds vocabulary beyond its own description |
+| Aliases | Each declared alias exists, names its target, and points at a working engine rather than another alias |
+| Routing | Every engine appears in `novel-orchestrator` |
+| Cross-references | No dangling skill or template references; every domain template reachable |
+| Manifests | Valid JSON; `name`, `version`, `license` identical across all four; required keys present |
+| Schema | `plugin.json` has no fields the Agent Plugins schema forbids |
+| Licence | MIT, copyright holder matches the manifest author |
+| Language | No en-US spellings in skills or templates |
+| Version labels | No pre-2.0 version labels left in content |
+
+The substance check exists because format validity is not usefulness. Two
+regressions in this project's history were perfectly well-formed files that
+carried no instructions at all, and both shipped through multiple releases
+before anyone noticed. The floors are set from the measured distribution of
+legitimate skills, so they catch gutting without flagging a short-but-complete
+skill. See `CHANGELOG.md` for the full history.

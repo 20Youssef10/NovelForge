@@ -1,0 +1,65 @@
+name: Validate
+
+# Runs the repository validator on every push and pull request. The validator
+# exists because two regressions in this project's history were spec-valid and
+# so passed every format check while silently removing working functionality.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Repository invariants
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Verifies skill spec compliance and substance floors, cross-reference
+      # integrity, orchestrator routing coverage, manifest version agreement,
+      # licence/author agreement, en-GB spelling, and the discovery symlinks.
+      - name: Run validator
+        run: python3 scripts/validate.py --schema --strict
+
+      # Confirms the skills tree is a real directory rather than a symlink that
+      # resolved to nothing on checkout. Windows checkouts without symlink
+      # support materialise the discovery links as plain files, so verify the
+      # canonical path directly and report the links separately.
+      - name: Verify skills tree
+        run: |
+          count=$(find skills -name SKILL.md -type f | wc -l)
+          echo "SKILL.md files: $count"
+          if [ "$count" -eq 0 ]; then
+            echo "::error::no SKILL.md files found under skills/"
+            exit 1
+          fi
+
+      - name: Report discovery links
+        run: |
+          for link in .opencode/skills .agents/skills .gemini/skills; do
+            if [ -L "$link" ]; then
+              echo "$link -> $(readlink "$link")"
+            elif [ -d "$link" ]; then
+              echo "$link is a real directory (symlink not materialised on this platform)"
+            else
+              echo "::error::$link missing"
+              exit 1
+            fi
+          done
