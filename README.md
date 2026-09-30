@@ -1,4 +1,4 @@
-# NovelForge v2.1.0
+# NovelForge v2.3.1
 
 A skills-first, agentic novel-writing system for long-form fiction. Supports fantasy, dark fantasy, mystery, thriller, psychological fiction, isekai, cultivation, murim, and hybrid projects.
 

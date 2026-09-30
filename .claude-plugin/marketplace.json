@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "NovelForge — skills-first agentic novel-writing system for long-form fiction",
-    "version": "2.1.0"
+    "version": "2.3.1"
   },
   "plugins": [
     {
       "name": "novelforge",
       "source": "./",
-      "description": "43 specialist novel-writing engines with a narrative graph, canon governance, and risk-based approval gates."
+      "description": "44 specialist novel-writing engines with a narrative graph, canon governance, and risk-based approval gates."
     }
   ]
 }

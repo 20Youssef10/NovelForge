@@ -525,6 +525,58 @@ def check_language(r: Report, skills: dict[str, str], templates: set[str]) -> No
         r.ok(section, "no en-US spellings in skills or templates")
 
 
+def check_version_agreement(r: Report, manifests: dict[str, dict], skills: dict[str, str]) -> None:
+    """The version must agree everywhere it is written, not just in the manifests.
+
+    `plugin.json` is not the only place a version is recorded. The README title
+    and the Claude marketplace metadata both carry one, and both drifted during
+    2.3.1 because only the four plugin manifests were being compared.
+    """
+    section = "Version agreement"
+    versions = {label: d.get("version") for label, d in manifests.items() if d}
+    if not versions:
+        r.fail(section, "no manifests loaded")
+        return
+    canonical = next(iter(set(versions.values()))) if len(set(versions.values())) == 1 else None
+    if canonical is None:
+        r.fail(section, f"manifests disagree: {versions}")
+        return
+    r.ok(section, f"manifests agree on {canonical}")
+
+    readme = ROOT / "README.md"
+    if readme.is_file():
+        first = readme.read_text(encoding="utf-8").split("\n", 1)[0]
+        found = re.search(r"\bv?(\d+\.\d+\.\d+)\b", first)
+        if not found:
+            r.fail(section, f"README title carries no version: {first!r}")
+        elif found.group(1) != canonical:
+            r.fail(section, f"README title says {found.group(1)} but manifests say {canonical}")
+
+    for rel in (".claude-plugin/marketplace.json", ".agents/plugins/marketplace.json"):
+        path = ROOT / rel
+        if not path.is_file():
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            r.fail(section, f"{rel} invalid JSON: {exc}")
+            continue
+        declared = (data.get("metadata") or {}).get("version")
+        if declared and declared != canonical:
+            r.fail(section, f"{rel} metadata.version is {declared}, manifests say {canonical}")
+
+    # Engine counts quoted in prose go stale as skills are added or removed.
+    engines = len(skills) - 1  # every skill except the orchestrator
+    for rel in (".claude-plugin/marketplace.json", "plugin.json", ".codex-plugin/plugin.json"):
+        path = ROOT / rel
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for quoted in re.findall(r"\b(\d+)\s+(?:specialist\s+)?(?:novel-writing\s+)?engines\b", text):
+            if int(quoted) != engines:
+                r.fail(section, f"{rel} claims {quoted} engines, there are {engines}")
+
+
 def check_openai_listing(r: Report, manifests: dict[str, dict]) -> None:
     """Enforce the documented OpenAI listing-metadata limits.
 
@@ -690,6 +742,7 @@ def main() -> int:
     check_routing(report, skills)
     check_references(report, skills, templates)
     manifests = check_manifests(report)
+    check_version_agreement(report, manifests, skills)
     if args.schema:
         check_schema(report, manifests)
     check_license(report, manifests)
