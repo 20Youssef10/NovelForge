@@ -1,0 +1,2 @@
+name: workspace-manager
+description: Manage multiple novel projects within one workspace using strict project boundaries, registry metadata, active-project selection, and cross-novel isolation. Use when more than one novel is present, when switching projects, or before any cross-project reference.

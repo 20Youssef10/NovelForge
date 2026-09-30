@@ -1,0 +1,2 @@
+name: dialogue
+description: Write and audit dialogue that maintains distinct character voices, respects knowledge limits, uses subtext, and gives every exchange a conversational function. Use for any conversation, interrogation, negotiation, or spoken conflict.

@@ -1,0 +1,2 @@
+name: canon-manager
+description: Classify facts and changes into canon states, run dependency and impact analysis, and gate approved retcons. Use for any change to established canon, any promotion of a proposal to canon, and any decision that alters what has already been written.

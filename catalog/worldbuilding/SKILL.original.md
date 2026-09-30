@@ -1,0 +1,2 @@
+name: worldbuilding
+description: Build coherent worlds from geography, history, culture, politics, economics, faith, technology, and social rules, connecting durable facts to the narrative graph and consequences. Use when designing, expanding, or auditing a setting.

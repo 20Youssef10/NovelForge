@@ -32,10 +32,11 @@ Route only to the specialists the task requires. Use `context-manager` for any m
 
 | Domain | Route to |
 | --- | --- |
+| Project intake from an existing draft | `manuscript-import` |
 | Architecture, saga/arc/chapter/scene planning | `novel-planner`, `plot-engineering` |
 | Character construction and identity | `character-development`, `character-arc-engine` |
 | Decision plausibility and behaviour | `character-simulation` |
-| Scene execution and prose drafting | `scene-writing`, `dialogue`, `prose-style` |
+| Scene execution and prose drafting | `scene-writing`, `dialogue`, `narrative-style` |
 | Narrator, POV, focalisation, reliability | `narrative-voice` |
 | Style DNA, drift, generic prose | `narrative-style`, `style-drift`, `generic-writing-detector` |
 | Clichés, genre conventions, subversions | `anti-cliche`, `trope-manager` |
@@ -56,6 +57,7 @@ Route only to the specialists the task requires. Use `context-manager` for any m
 | Translation and adaptation | `localisation` |
 | Snapshots, branches, merges, rollback | `version-control` |
 | Cross-novel boundaries and project selection | `workspace-manager` |
+| Series-level shared canon across novels | `series-manager` |
 | Author preferences | `author-profile` |
 | Long-term agent memory | `memory-manager` |
 | Completion verification | `quality-gate` |

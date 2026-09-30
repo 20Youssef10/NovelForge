@@ -1,0 +1,2 @@
+name: theme-engine
+description: Track thematic questions, tensions, character embodiments, plot tests, counterexamples, and thematic payoffs, ensuring themes emerge through choices and consequences rather than assertion. Use for thematic planning, integration checks, and ending assessment.

@@ -1,0 +1,2 @@
+name: payoff-debt
+description: Maintain an indexed ledger of unresolved narrative promises, setups, mysteries, relationship obligations, consequences, and world or power setups awaiting resolution, tracking origin, window, priority, and disposition. Use to prevent forgotten payoffs and overloaded resolutions.

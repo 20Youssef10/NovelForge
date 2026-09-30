@@ -1,0 +1,2 @@
+name: power-system
+description: Define and preserve power-system rules, resources, costs, limitations, ranks, progression, techniques, counters, and exceptions, and distinguish raw power from skill, strategy, and circumstance. Use for magic, cultivation, murim, supernatural, and technological capability design and auditing.

@@ -1,0 +1,2 @@
+name: consequence-engine
+description: Propagate meaningful immediate, delayed, social, material, relational, strategic, political, and thematic consequences through the narrative graph and timeline. Use after any significant change to check that the story acknowledges what it caused.

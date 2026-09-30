@@ -1,0 +1,2 @@
+name: version-control
+description: Manage story snapshots, branches, experimental alternatives, diffs, comparisons, rollbacks, merges, and canon-safe retcons, keeping branch state isolated until an explicit approved merge. Use before any meaningful edit and for all branching work.

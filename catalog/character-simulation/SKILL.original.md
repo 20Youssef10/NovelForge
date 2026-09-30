@@ -1,0 +1,2 @@
+name: character-simulation
+description: Simulate character decisions under goals, beliefs, fears, knowledge limits, relationships, incentives, constraints, and current pressure, in order to test agency and behavioural consistency. Use as a plausibility test for any significant character choice.

@@ -1,0 +1,2 @@
+name: context-manager
+description: Retrieve minimal, targeted context from canon layers, narrative graph neighbourhoods, open obligations, reader and character knowledge, style DNA, author preferences, and branch state before any specialist work. Use for every multi-file task.

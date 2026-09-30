@@ -1,0 +1,2 @@
+name: battle-choreography
+description: Create and audit coherent action and combat sequences through spatial state, visibility, terrain, abilities, resources, costs, objectives, injuries, knowledge, and adaptation. Use for any fight, chase, or physical confrontation.

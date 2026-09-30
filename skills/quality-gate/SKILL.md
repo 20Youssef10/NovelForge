@@ -36,6 +36,8 @@ Run the checks that apply to the work in front of you. The gate is a verificatio
 
 Single units use `project/quality-check.md`; project-wide audits use `templates/QUALITY_GATE.md`. Record the verdict with findings, safe repairs, and approval items listed separately.
 
+Carry every finding into the project's `quality/FINDINGS.md` ledger so a gate run adds to the accumulated state rather than re-reporting the same problem indefinitely. Before running, check the ledger for previously accepted risks and regression watch entries so neither is silently re-raised.
+
 ## Verdict
 
 - **PASS** — applicable checks pass, no outstanding HIGH-risk items.

@@ -1,0 +1,2 @@
+name: character-arc-engine
+description: Engineer and audit earned character arcs through governing beliefs, pressure, dilemmas, choices, consequences, reversals, realisations, and end-state transformation. Use when planning or checking whether a character's change is earned.

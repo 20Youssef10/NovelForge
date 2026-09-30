@@ -63,3 +63,13 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Verify SessionStart hook
+        run: |
+          python3 -c "import json; json.load(open('hooks/hooks.json'))"
+          # The hook must be silent and non-fatal outside a project.
+          cd /tmp && echo '{}' | python3 "$GITHUB_WORKSPACE/hooks/session_start.py" > /dev/null
+          echo "hook is inert outside a project (exit $?)"
+          # And must not crash on malformed input.
+          cd /tmp && printf 'not json' | python3 "$GITHUB_WORKSPACE/hooks/session_start.py" > /dev/null
+          echo "hook tolerates malformed stdin (exit $?)"

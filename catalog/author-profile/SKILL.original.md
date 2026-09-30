@@ -1,0 +1,2 @@
+name: author-profile
+description: Maintain a reusable author preference profile covering writing goals, dislikes, workflow, planning granularity, autonomy boundaries, language, and feedback preferences across novels. Use to customise how NovelForge works for this author.

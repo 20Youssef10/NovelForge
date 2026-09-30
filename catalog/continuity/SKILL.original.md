@@ -1,0 +1,2 @@
+name: continuity
+description: Check and maintain relevant continuity across characters, chronology, locations, objects, knowledge, relationships, world rules, abilities, injuries, terminology, and events, without over-tracking detail that cannot affect the story. Use before and after writing whenever consistency matters.

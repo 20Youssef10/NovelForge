@@ -1,0 +1,2 @@
+name: faction-simulation
+description: Model institutions and factions through goals, resources, information, internal blocs, alliances, rivalries, constraints, and strategic responses, allowing partial information and internal disagreement. Use when designing institutions or testing how groups respond to events.

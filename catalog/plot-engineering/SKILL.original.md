@@ -1,0 +1,2 @@
+name: plot-engineering
+description: Engineer causally earned plot turns through cause, agency, escalation, reversals, stakes, and consequences. Use when building or auditing any major event, reversal, or structural sequence.

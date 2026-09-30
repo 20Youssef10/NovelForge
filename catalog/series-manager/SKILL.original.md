@@ -1,0 +1,2 @@
+name: series-manager
+description: Manage canon shared across multiple novels in a series, including world bible inheritance, character arcs spanning books, shared glossary and terminology, continuity of chronology, and controlled divergence. Use when a series has more than one novel, when starting a follow-up volume, or when reconciling a book against what earlier books established.

@@ -1,0 +1,2 @@
+name: pacing-engine
+description: Audit narrative tempo through scene function, event density, decision frequency, information movement, escalation, consequence visibility, and breathing space, rather than word counts. Use when a draft feels rushed, stalled, or flat.

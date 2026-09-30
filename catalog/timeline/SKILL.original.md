@@ -1,0 +1,2 @@
+name: timeline
+description: Maintain coherent chronology across dates, durations, ages, sequencing, travel time, flashbacks, and simultaneous events, tracking branch-specific divergences separately. Use when planning, auditing, or changing when anything happens.

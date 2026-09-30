@@ -42,22 +42,12 @@ MANIFESTS = {
     "github (Copilot)": ".github/plugin.json",
 }
 
-# Plugins that discover skills by directory. Each must be a relative symlink
+# Skills that discover skills by directory. Each must be a relative symlink
 # into skills/ so the skills cannot drift out of sync.
 DISCOVERY_LINKS = {
     ".opencode/skills": "OpenCode V2 (native)",
     ".agents/skills": "Codex CLI, OpenCode (compatibility)",
     ".gemini/skills": "Gemini CLI",
-}
-
-# Compatibility aliases. Each is a thin routing shim with no behaviour of its
-# own; `alias_targets` records what it defers to so the mapping stays honest.
-ALIASES = {
-    "trope-management": "trope-manager",
-    "versioning": "version-control",
-    "memory-governance": "memory-manager",
-    "workspace-isolation": "workspace-manager",
-    "prose-style": "narrative-style",
 }
 
 # The orchestrator does not need to route to itself.
@@ -331,25 +321,6 @@ def check_substance(r: Report, skills: dict[str, str]) -> None:
         r.ok(section, f"all {len(skills)} skills carry instructions (thinnest: {sizes[0][1]}, {sizes[0][0]} bytes)")
 
 
-def check_aliases(r: Report, skills: dict[str, str]) -> None:
-    section = "Compatibility aliases"
-    for alias, target in ALIASES.items():
-        if alias not in skills:
-            r.fail(section, f"{alias}: declared alias is missing from skills/")
-            continue
-        if target not in skills:
-            r.fail(section, f"{alias}: target {target} does not exist")
-            continue
-        text = skills[alias].lower()
-        if target not in text:
-            r.fail(section, f"{alias}: does not name its target {target}")
-            continue
-        if alias in ALIASES and target in ALIASES:
-            r.fail(section, f"{alias}: points at another alias ({target}) rather than a working engine")
-            continue
-        r.ok(section, f"{alias} -> {target}")
-
-
 def check_routing(r: Report, skills: dict[str, str]) -> None:
     section = "Orchestrator routing"
     if ORCHESTRATOR not in skills:
@@ -357,15 +328,11 @@ def check_routing(r: Report, skills: dict[str, str]) -> None:
         return
     orchestrator = skills[ORCHESTRATOR]
     mentioned = set(re.findall(r"`([a-z][a-z0-9-]+)`", orchestrator))
-    unrouted = sorted(
-        s for s in skills
-        if s not in mentioned and s != ORCHESTRATOR and s not in ALIASES
-    )
+    unrouted = sorted(s for s in skills if s not in mentioned and s != ORCHESTRATOR)
     if unrouted:
-        r.fail(section, f"engines absent from the routing table: {unrouted}")
+        r.fail(section, f"skills absent from the routing table: {unrouted}")
     else:
-        engines = len(skills) - len(ALIASES) - 1
-        r.ok(section, f"all {engines} engines routed from {ORCHESTRATOR}")
+        r.ok(section, f"all {len(skills) - 1} skills routed from {ORCHESTRATOR}")
 
 
 def check_references(r: Report, skills: dict[str, str], templates: set[str]) -> None:
@@ -375,15 +342,30 @@ def check_references(r: Report, skills: dict[str, str], templates: set[str]) -> 
 
     dangling_skills: list[str] = []
     dangling_templates: list[str] = []
+    dangling_local: list[str] = []
+
+    # Per-skill payload directories defined by the Agent Skills spec. Paths
+    # written inside a skill are relative to that skill's own directory, so
+    # these are checked against the filesystem rather than the template tree.
+    LOCAL_DIRS = ("references/", "scripts/", "assets/")
 
     for skill_id, text in skills.items():
         for ref in set(re.findall(r"`([a-z][a-z0-9]+(?:-[a-z0-9]+)+)`", text)):
             if ref not in known:
                 dangling_skills.append(f"{skill_id} -> skill {ref}")
 
-        for ref in set(re.findall(r"`([A-Za-z_][A-Za-z0-9_-]*(?:/[A-Za-z0-9_.-]+)*\.md)`", text)):
+        for ref in sorted(set(re.findall(r"`([A-Za-z_][A-Za-z0-9_-]*(?:/[A-Za-z0-9_.-]+)*\.(?:md|py|sh|ts|js|json))`", text))):
+            if ref.startswith(LOCAL_DIRS):
+                target = ROOT / "skills" / skill_id / ref
+                if not target.is_file():
+                    dangling_local.append(f"{skill_id} -> {ref} (file does not exist)")
+                elif target.stat().st_size == 0:
+                    dangling_local.append(f"{skill_id} -> {ref} (file is empty)")
+                continue
             # Accept paths written relative to templates/, to project/, or to the
             # plugin root (a leading `templates/` is the repo-root form).
+            if not ref.endswith(".md"):
+                continue
             candidates = {ref, ref[len("templates/"):] if ref.startswith("templates/") else ref}
             if candidates & templates or candidates & project_templates or {f"project/{c}" for c in candidates} & templates:
                 continue
@@ -394,6 +376,21 @@ def check_references(r: Report, skills: dict[str, str], templates: set[str]) -> 
             r.fail(section, f"dangling {item}")
     else:
         r.ok(section, "no dangling skill references")
+
+    if dangling_local:
+        for item in sorted(dangling_local):
+            r.fail(section, f"bad skill-local reference {item}")
+    else:
+        payload = sorted(
+            p.parent.name
+            for s in skills
+            for p in (ROOT / "skills" / s).rglob("*")
+            if p.is_file() and p.parent.name in {"references", "scripts", "assets"}
+        )
+        if payload:
+            r.ok(section, f"all skill-local payload references resolve ({len(payload)} files)")
+        else:
+            r.ok(section, "no skill-local payload references")
 
     if dangling_templates:
         for item in sorted(dangling_templates):
@@ -528,6 +525,29 @@ def check_language(r: Report, skills: dict[str, str], templates: set[str]) -> No
         r.ok(section, "no en-US spellings in skills or templates")
 
 
+def check_catalog(r: Report) -> None:
+    """The OpenCode HTTP catalog must match the canonical skills."""
+    section = "OpenCode catalog"
+    script = ROOT / "scripts" / "build_catalog.py"
+    if not script.is_file():
+        r.warn(section, "scripts/build_catalog.py missing; catalog not verified")
+        return
+    import subprocess
+    try:
+        result = subprocess.run(
+            [sys.executable, str(script), "--check"],
+            capture_output=True, text=True, timeout=60, cwd=str(ROOT),
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        r.warn(section, f"could not run catalog check ({exc})")
+        return
+    if result.returncode == 0:
+        r.ok(section, result.stdout.strip() or "catalog is up to date")
+    else:
+        detail = (result.stderr or result.stdout).strip().splitlines()
+        r.fail(section, detail[0] if detail else "catalog check failed")
+
+
 def check_no_stale_version_labels(r: Report, skills: dict[str, str]) -> None:
     section = "Version labels"
     pattern = re.compile(r"\bv?(1\.[0-9](?:\.[0-9])?)\b")
@@ -569,7 +589,6 @@ def main() -> int:
     check_layout(report, skills, templates)
     check_skill_spec(report, skills)
     check_substance(report, skills)
-    check_aliases(report, skills)
     check_routing(report, skills)
     check_references(report, skills, templates)
     manifests = check_manifests(report)
@@ -578,6 +597,7 @@ def main() -> int:
     check_license(report, manifests)
     check_language(report, skills, templates)
     check_no_stale_version_labels(report, skills)
+    check_catalog(report)
 
     print(report.render())
     print()

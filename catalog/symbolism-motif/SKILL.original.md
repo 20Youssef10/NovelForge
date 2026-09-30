@@ -1,0 +1,2 @@
+name: symbolism-motif
+description: Design and track recurring symbols, motifs, images, objects, colours, places, and sensory patterns with controlled evolution, counter-symbols, and payoff. Use for the figurative layer of a novel and for detecting decorative or over-explained repetition.

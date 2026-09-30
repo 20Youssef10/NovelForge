@@ -1,0 +1,2 @@
+name: novel-orchestrator
+description: Orchestrate NovelForge across all specialist engines, targeted context, canon governance, style intelligence, versioning, research provenance, and autonomous long-term maintenance. Use for multi-step novel work, project-wide audits, branching, or when the author asks the system to act autonomously.

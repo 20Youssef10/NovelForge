@@ -1,0 +1,2 @@
+name: causality-engine
+description: Verify that major plot turns arise through coherent prior conditions, triggers, choices, actions, mechanisms, and consequences, distinguishing necessity from coincidence and coincidence from contrivance. Use when a turn feels unearned or arbitrary.

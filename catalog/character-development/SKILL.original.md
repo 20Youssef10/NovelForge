@@ -1,0 +1,2 @@
+name: character-development
+description: Design characters as autonomous agents rather than plot tools, tracking identity, psychology, behaviour, relationships, voice, and arc. Use when creating, deepening, auditing, or maintaining any significant character.

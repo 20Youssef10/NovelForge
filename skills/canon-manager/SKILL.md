@@ -29,6 +29,8 @@ Ambiguity between two states is itself a finding. Record it rather than silently
 5. Apply LOW-risk local updates automatically. Route MEDIUM for confirmation. Route HIGH for explicit author approval before any edit.
 6. Record the reason, the affected files, the approving authority, and the migration status.
 
+The full nine-step procedure, the risk table, the migration discipline, and the dimension-independence rule are in `references/CHANGE_PROCEDURE.md`.
+
 ## Rules
 
 - Never silently overwrite established canon. There is no such thing as a quiet retcon.

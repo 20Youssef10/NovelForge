@@ -1,0 +1,2 @@
+name: style-drift
+description: Detect drift away from a novel's established Style DNA across prose, POV, tense, rhythm, diction, atmosphere, dialogue density, imagery, and narrative distance, separating intentional evolution from accidental drift. Use when auditing chapters, revisions, or new material against established voice.

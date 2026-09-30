@@ -48,4 +48,4 @@ Style is not a score. Do not reduce prose to a numerical similarity measure and 
 
 ## Coordination
 
-Use `narrative-voice` for POV, focalisation, and reliability; `prose-style` as the drafting-application entry point; `style-drift` for detection across chapters; `generic-writing-detector` for prose that is style-neutral; and `anti-cliche` and `symbolism-motif` for the figurative layer.
+Use `narrative-voice` for POV, focalisation, and reliability; `style-drift` for detection across chapters; `generic-writing-detector` for prose that is style-neutral; and `anti-cliche` and `symbolism-motif` for the figurative layer.

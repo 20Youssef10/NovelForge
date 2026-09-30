@@ -1,0 +1,324 @@
+{
+  "skills": [
+    {
+      "name": "anti-cliche",
+      "version": "3",
+      "files": [
+        "anti-cliche.md"
+      ]
+    },
+    {
+      "name": "author-profile",
+      "version": "3",
+      "files": [
+        "author-profile.md"
+      ]
+    },
+    {
+      "name": "battle-choreography",
+      "version": "3",
+      "files": [
+        "battle-choreography.md"
+      ]
+    },
+    {
+      "name": "canon-manager",
+      "version": "3",
+      "files": [
+        "canon-manager.md",
+        "references/CHANGE_PROCEDURE.md"
+      ]
+    },
+    {
+      "name": "causality-engine",
+      "version": "3",
+      "files": [
+        "causality-engine.md"
+      ]
+    },
+    {
+      "name": "character-arc-engine",
+      "version": "3",
+      "files": [
+        "character-arc-engine.md"
+      ]
+    },
+    {
+      "name": "character-development",
+      "version": "3",
+      "files": [
+        "character-development.md"
+      ]
+    },
+    {
+      "name": "character-simulation",
+      "version": "3",
+      "files": [
+        "character-simulation.md"
+      ]
+    },
+    {
+      "name": "consequence-engine",
+      "version": "3",
+      "files": [
+        "consequence-engine.md"
+      ]
+    },
+    {
+      "name": "context-manager",
+      "version": "3",
+      "files": [
+        "context-manager.md"
+      ]
+    },
+    {
+      "name": "continuity",
+      "version": "3",
+      "files": [
+        "continuity.md"
+      ]
+    },
+    {
+      "name": "critique",
+      "version": "3",
+      "files": [
+        "critique.md",
+        "references/CHECK_CATALOGUE.md"
+      ]
+    },
+    {
+      "name": "dialogue",
+      "version": "3",
+      "files": [
+        "dialogue.md"
+      ]
+    },
+    {
+      "name": "faction-simulation",
+      "version": "3",
+      "files": [
+        "faction-simulation.md"
+      ]
+    },
+    {
+      "name": "foreshadowing",
+      "version": "3",
+      "files": [
+        "foreshadowing.md"
+      ]
+    },
+    {
+      "name": "generic-writing-detector",
+      "version": "3",
+      "files": [
+        "generic-writing-detector.md",
+        "references/PATTERNS.md"
+      ]
+    },
+    {
+      "name": "localisation",
+      "version": "3",
+      "files": [
+        "localisation.md"
+      ]
+    },
+    {
+      "name": "manuscript-import",
+      "version": "3",
+      "files": [
+        "manuscript-import.md"
+      ]
+    },
+    {
+      "name": "memory-manager",
+      "version": "3",
+      "files": [
+        "memory-manager.md"
+      ]
+    },
+    {
+      "name": "mystery-engine",
+      "version": "3",
+      "files": [
+        "mystery-engine.md",
+        "references/FAIRNESS.md"
+      ]
+    },
+    {
+      "name": "narrative-graph",
+      "version": "3",
+      "files": [
+        "narrative-graph.md"
+      ]
+    },
+    {
+      "name": "narrative-style",
+      "version": "3",
+      "files": [
+        "narrative-style.md"
+      ]
+    },
+    {
+      "name": "narrative-voice",
+      "version": "3",
+      "files": [
+        "narrative-voice.md"
+      ]
+    },
+    {
+      "name": "novel-orchestrator",
+      "version": "3",
+      "files": [
+        "novel-orchestrator.md"
+      ]
+    },
+    {
+      "name": "novel-planner",
+      "version": "3",
+      "files": [
+        "novel-planner.md"
+      ]
+    },
+    {
+      "name": "pacing-engine",
+      "version": "3",
+      "files": [
+        "pacing-engine.md"
+      ]
+    },
+    {
+      "name": "payoff-debt",
+      "version": "3",
+      "files": [
+        "payoff-debt.md"
+      ]
+    },
+    {
+      "name": "plot-engineering",
+      "version": "3",
+      "files": [
+        "plot-engineering.md"
+      ]
+    },
+    {
+      "name": "power-exploit",
+      "version": "3",
+      "files": [
+        "power-exploit.md"
+      ]
+    },
+    {
+      "name": "power-system",
+      "version": "3",
+      "files": [
+        "power-system.md",
+        "references/SCALING_AND_EXPLOITS.md"
+      ]
+    },
+    {
+      "name": "quality-gate",
+      "version": "3",
+      "files": [
+        "quality-gate.md"
+      ]
+    },
+    {
+      "name": "reader-knowledge",
+      "version": "3",
+      "files": [
+        "reader-knowledge.md"
+      ]
+    },
+    {
+      "name": "research",
+      "version": "3",
+      "files": [
+        "research.md"
+      ]
+    },
+    {
+      "name": "research-provenance",
+      "version": "3",
+      "files": [
+        "research-provenance.md"
+      ]
+    },
+    {
+      "name": "scene-writing",
+      "version": "3",
+      "files": [
+        "scene-writing.md"
+      ]
+    },
+    {
+      "name": "series-manager",
+      "version": "3",
+      "files": [
+        "series-manager.md"
+      ]
+    },
+    {
+      "name": "style-drift",
+      "version": "3",
+      "files": [
+        "style-drift.md"
+      ]
+    },
+    {
+      "name": "symbolism-motif",
+      "version": "3",
+      "files": [
+        "symbolism-motif.md"
+      ]
+    },
+    {
+      "name": "tension-engine",
+      "version": "3",
+      "files": [
+        "tension-engine.md"
+      ]
+    },
+    {
+      "name": "theme-engine",
+      "version": "3",
+      "files": [
+        "theme-engine.md"
+      ]
+    },
+    {
+      "name": "timeline",
+      "version": "3",
+      "files": [
+        "timeline.md"
+      ]
+    },
+    {
+      "name": "trope-manager",
+      "version": "3",
+      "files": [
+        "trope-manager.md"
+      ]
+    },
+    {
+      "name": "version-control",
+      "version": "3",
+      "files": [
+        "version-control.md"
+      ]
+    },
+    {
+      "name": "workspace-manager",
+      "version": "3",
+      "files": [
+        "workspace-manager.md"
+      ]
+    },
+    {
+      "name": "worldbuilding",
+      "version": "3",
+      "files": [
+        "worldbuilding.md"
+      ]
+    }
+  ]
+}

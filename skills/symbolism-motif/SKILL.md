@@ -47,4 +47,4 @@ Coordinate meaning with the theme; a motif that supports a theme nobody asked fo
 
 ## Coordination
 
-Use `theme-engine` for what motifs serve, `prose-style` and `narrative-style` for the figurative register, `foreshadowing` for motifs that plant, and `payoff-debt` to register motif returns as obligations.
+Use `theme-engine` for what motifs serve, `narrative-style` for the figurative register, `foreshadowing` for motifs that plant, and `payoff-debt` to register motif returns as obligations.

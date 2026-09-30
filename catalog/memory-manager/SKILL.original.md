@@ -1,0 +1,2 @@
+name: memory-manager
+description: Maintain long-term writing-agent memory across sessions using scoped durable notes, retrieval policies, expiry rules, and strict canon boundaries. Use when persisting state beyond a single task, resuming prior work, or preventing stale memory from contaminating a project.

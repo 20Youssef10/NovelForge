@@ -1,6 +1,6 @@
 {
   "name": "novelforge",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Skills-first agentic novel-writing system for long-form fiction: 43 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
   "author": {
     "name": "ShinZero",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "NovelForge",
     "shortDescription": "Agentic novel writing system",
-    "longDescription": "NovelForge v2.1 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance.",
+    "longDescription": "NovelForge v2.3 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance.",
     "developerName": "ShinZero",
     "category": "Writing",
     "capabilities": [

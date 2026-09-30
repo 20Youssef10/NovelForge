@@ -1,0 +1,2 @@
+name: foreshadowing
+description: Create, track, audit, and resolve layered narrative setups with stable IDs, visibility and strength assessment, spoiler-risk control, and explicit payoff status. Use for planting clues, auditing payoff debt, and checking reveal integrity.

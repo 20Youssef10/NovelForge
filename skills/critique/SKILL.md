@@ -31,6 +31,12 @@ Severity describes consequence, not effort. A one-word fix that invalidates an a
 
 Quote or cite the specific location for every finding. Distinguish what the text does from what you infer it intends. If the intent is ambiguous, say so rather than scoring the ambiguity as a fault.
 
+For the full check catalogue across every dimension, read `references/CHECK_CATALOGUE.md` when conducting a complete review.
+
+## Record
+
+Log every finding in `quality/FINDINGS.md` with a stable ID, so the same issue is not re-reported on each run and it stays visible until it is fixed or explicitly accepted. Assign the ID at first report, move a finding to Resolved only once the fix is verified rather than merely attempted, and record author-accepted risks with a reason so they stop recurring. Never delete a finding: a deleted entry and a fixed one are indistinguishable, and only one of them is true.
+
 ## Repair policy
 
 Do not rewrite by default. Report first. LOW-risk local repairs may be executed by the orchestrator once identified; MEDIUM and HIGH-impact changes require approval, and HIGH-impact findings should be presented as options with consequences rather than a single recommendation.

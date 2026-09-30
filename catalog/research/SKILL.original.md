@@ -1,0 +1,2 @@
+name: research
+description: Research factual and creative material for fiction, separating verified fact, interpretation, speculation, and creative invention, and translating findings into story-useful constraints and detail. Use when a novel depends on real-world accuracy.

@@ -1,0 +1,2 @@
+name: narrative-voice
+description: Analyse and preserve narrator identity, narrative distance, focalisation, reliability, and consistency across POV structures, detecting head-hopping, omniscient leakage, and impossible knowledge. Use for any POV design, revision, or audit.

@@ -26,6 +26,8 @@ Diagnose and give concrete revision targets: name the passage, the pattern, and 
 
 Prefer diagnosis plus targets over wholesale rewrite. A rewrite of generic prose by a system that has not been given the author's voice will produce different generic prose.
 
+For the full pattern inventory and the precision tests, read `references/PATTERNS.md` when a passage needs identifying.
+
 ## Rules
 
 - Do not equate polished or simple prose with generic prose. Understatement is a style, not a defect.

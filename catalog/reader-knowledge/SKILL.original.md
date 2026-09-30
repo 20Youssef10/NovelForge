@@ -1,0 +1,2 @@
+name: reader-knowledge
+description: Model plausible reader knowledge, inference, expectation, uncertainty, and misunderstanding at each narrative point, in order to test mystery fairness, reveal integrity, foreshadowing subtlety, and accidental spoilers. Use whenever information is revealed, withheld, or manipulated.

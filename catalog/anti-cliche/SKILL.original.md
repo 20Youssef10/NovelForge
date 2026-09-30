@@ -1,0 +1,2 @@
+name: anti-cliche
+description: Detect overused narrative, dialogue, imagery, character, and plot conventions and propose context-fitting alternatives, while preserving deliberate genre use. Use when prose or structure feels predictable, or when revising familiar beats.

@@ -1,0 +1,2 @@
+name: trope-manager
+description: Maintain a trope ledger covering role, setup, intended function, reader expectation, subversion status, and resolution, so that genre conventions are used deliberately rather than by default. Use for genre-aware planning and auditing.

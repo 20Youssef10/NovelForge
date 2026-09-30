@@ -1,0 +1,2 @@
+name: generic-writing-detector
+description: Detect generic, interchangeable, AI-like prose — abstraction, stock emotional language, empty intensity, formulaic transitions, repeated cadence, low-specificity narration, and exposition substituting for scene — while preserving intentional stylistic repetition. Use when revising or when prose feels interchangeable.

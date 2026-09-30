@@ -1,0 +1,2 @@
+name: narrative-graph
+description: Maintain the durable graph of entities and typed relationships — characters, events, locations, factions, mysteries, clues, powers, promises, consequences, themes, and motifs — for dependency retrieval and canon-impact analysis. Use when tracing how a change propagates.

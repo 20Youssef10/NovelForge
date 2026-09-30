@@ -29,7 +29,7 @@ Central mysteries, sub-mysteries, suspects, motives, evidence, clues, red herrin
 
 When a mystery is intended to be solvable, major conclusions must be supported by clues available before or at the reveal — unless the story deliberately establishes why evidence was hidden, destroyed, or unreliable. That exception must be visible in the text, not merely true in the author's head.
 
-Test this directly: assemble the clue set available at the reveal point and check whether a careful reader could have reached the conclusion. If not, either add evidence earlier or change the intended solution.
+Test this directly: assemble the clue set available at the reveal point and check whether a careful reader could have reached the conclusion. If not, either add evidence earlier or change the intended solution. The step-by-step solvability test, the information-class table, and the failure taxonomy are in `references/FAIRNESS.md`.
 
 ## Red herrings
 

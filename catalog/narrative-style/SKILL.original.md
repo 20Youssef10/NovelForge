@@ -1,0 +1,2 @@
+name: narrative-style
+description: Define, maintain, and apply a novel's Style DNA — prose signatures, rhythm, diction, imagery, dialogue balance, description density, viewpoint habits, and stylistic invariants — and compare candidate passages against it. Use for style definition, style-sensitive revision, and voice preservation.

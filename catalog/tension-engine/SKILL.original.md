@@ -1,0 +1,2 @@
+name: tension-engine
+description: Build and audit meaningful tension through stakes, uncertainty, risk, pressure, information gaps, and credible consequences. Use when danger feels hollow, outcomes feel certain, or scenes are nominally dramatic without real stakes.

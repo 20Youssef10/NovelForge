@@ -57,6 +57,20 @@ OpenCode derives each skill ID from its path, so `skills/novel-orchestrator/SKIL
 
 OpenCode loads skills through the `skill` tool rather than injecting them into every prompt, so skills are advertised by description and pulled in only when relevant. Its `license` and `compatibility` frontmatter fields are accepted for portability but not interpreted.
 
+**Install from the HTTP catalog**, without cloning:
+
+```jsonc
+// opencode.jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": [
+    "https://raw.githubusercontent.com/20Youssef10/NovelForge/main/catalog"
+  ]
+}
+```
+
+The catalog in `catalog/` is generated from `skills/` by `scripts/build_catalog.py` and kept current by CI. It ships each skill as `<name>.md` rather than `SKILL.md` because a root-level `SKILL.md` in a catalog collapses every skill onto the single ID `SKILL` in V2.
+
 ## Core design
 - File-based Novel Bible as the project source of truth
 - Targeted context retrieval instead of loading the whole novel
@@ -90,7 +104,19 @@ OpenCode loads skills through the `skill` tool rather than injecting them into e
 
 **Research and review** — `research`, `research-provenance`, `critique`
 
-**Compatibility aliases** — `trope-management`, `versioning`, `memory-governance`, `workspace-isolation`, `prose-style`. These resolve to their canonical engine and share its records.
+**Intake** — `manuscript-import`
+
+45 skills in total: 44 engines plus the orchestrator. Five larger engines also ship a `references/` file holding the depth that is not needed until the skill is actually working on a problem.
+
+## Commands
+
+Claude Code users get 16 slash commands from `commands/`: `novel-create`, `novel-import`, `novel-status`, `novel-report`, `plan`, `write`, `critique`, `gate`, `continuity`, `canon-impact`, `branch`, `payoff`, `mystery`, `power`, `style`, `series`.
+
+Other agents get the same workflows by asking in natural language; `templates/COMMANDS.md` is the full command reference.
+
+## Session context
+
+`hooks/hooks.json` registers a `SessionStart` hook shared by Codex and Claude Code. When a session opens inside a novel project, it injects the project root, title, status, branch, open Critical findings, and open obligation count — so cross-session continuity works without the agent being told where it is. It stays silent outside a project and never fails a session.
 
 ## Governance
 Canon states: `PERMANENT_CANON`, `ARC_CANON`, `CHAPTER_CANON`, `SCENE_STATE`, `PROPOSAL`, `UNRESOLVED`, `RECON`.
@@ -162,14 +188,14 @@ CI runs the same validator on every push and pull request.
 | Layout | Discovery symlinks present and resolving; `LICENSE` and `README` exist |
 | Agent Skills spec | `name` pattern, length, matches directory; description present and within limits; line count; unknown frontmatter keys; body opens with a heading |
 | **Skill substance** | Body above a byte floor, and adds vocabulary beyond its own description |
-| Aliases | Each declared alias exists, names its target, and points at a working engine rather than another alias |
 | Routing | Every engine appears in `novel-orchestrator` |
-| Cross-references | No dangling skill or template references; every domain template reachable |
+| Cross-references | No dangling skill or template references; every `references/` file exists and is non-empty; every domain template reachable |
 | Manifests | Valid JSON; `name`, `version`, `license` identical across all four; required keys present |
 | Schema | `plugin.json` has no fields the Agent Plugins schema forbids |
 | Licence | MIT, copyright holder matches the manifest author |
 | Language | No en-US spellings in skills or templates |
 | Version labels | No pre-2.0 version labels left in content |
+| OpenCode catalog | `catalog/` matches the canonical `skills/` tree |
 
 The substance check exists because format validity is not usefulness. Two
 regressions in this project's history were perfectly well-formed files that

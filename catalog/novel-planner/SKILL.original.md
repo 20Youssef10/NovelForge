@@ -1,0 +1,2 @@
+name: novel-planner
+description: Plan story architecture at the granularity the project needs, register promises and dependencies, and enforce plan-first drafting. Use for saga, arc, volume, chapter, and scene planning, and before any substantial drafting begins.

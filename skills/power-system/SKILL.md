@@ -31,6 +31,8 @@ Power scaling must distinguish:
 
 A lower-ranked character may win only when the context provides a credible reason from this list, and the reason must be visible in the scene. Rank is not destiny; unexplained rank victories are the most common and most damaging scaling failure.
 
+The full dimension table, the cost-design requirements, the exploit taxonomy, and the audit checklist are in `references/SCALING_AND_EXPLOITS.md`.
+
 ## Progression
 
 Define how advancement works, what it costs, and what it does not fix. Progression that solves every previous problem removes the reason for tension, so specify which earlier weaknesses persist.

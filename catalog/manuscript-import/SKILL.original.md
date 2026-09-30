@@ -1,0 +1,2 @@
+name: manuscript-import
+description: Ingest an existing draft into a NovelForge project by inventorying chapters, detecting POV and tense, extracting characters and relationships, reconstructing the timeline and plot structure, inferring Style DNA, and classifying discovered canon. Use when adopting a manuscript already written, when a project has no Novel Bible, or when retrofitting structure onto finished prose.

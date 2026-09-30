@@ -1,0 +1,2 @@
+name: critique
+description: Deliver rigorous, evidence-based, independent critique across structure, causality, agency, continuity, information control, style, originality, clichés, theme, pacing, tension, power, factions, and payoff debt. Use when the author asks for a review or an honest assessment of existing work.

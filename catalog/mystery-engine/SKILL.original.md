@@ -1,0 +1,2 @@
+name: mystery-engine
+description: Design and maintain mysteries through truth, clue chains, evidence, hypotheses, suspects, secrets, red herrings, reveal fairness, and post-reveal consequences, keeping author, character, and reader knowledge separate. Use for mystery, investigation, thriller, and psychological suspense.

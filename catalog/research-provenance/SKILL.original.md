@@ -1,0 +1,2 @@
+name: research-provenance
+description: Track research sources, claims, verification status, uncertainty, dates, and usage for factual material used in fiction, keeping traceable records of where externally derived facts enter the novel. Use for any claim the story depends on being accurate.

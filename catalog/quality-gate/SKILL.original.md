@@ -1,0 +1,2 @@
+name: quality-gate
+description: Run the full NovelForge completion gate across structure, causality, character, information control, style, originality, theme, research, power, faction, continuity, and version dimensions, then report PASS, PASS_WITH_ACCEPTED_ISSUES, or BLOCKED. Use before declaring any scene, chapter, or arc complete.

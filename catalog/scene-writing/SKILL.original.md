@@ -1,0 +1,2 @@
+name: scene-writing
+description: Draft scenes with purpose, conflict, beats, sensory specificity, character agency, and meaningful change. Use for writing or revising any scene once its plan and context are approved.
