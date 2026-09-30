@@ -5,6 +5,29 @@ All notable changes to NovelForge are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] — 2026-09-30
+
+### Fixed
+
+- **Invalid plugin category.** `category` was set to `Writing`, which is not a
+  title in the OpenAI dashboard's category list, so the plugin would have been
+  skipped in the marketplace picker. Now `Creativity`, in all three places the
+  value appears: `plugin.json`, `.codex-plugin/plugin.json`, and
+  `.agents/plugins/marketplace.json`.
+- **Over-length `defaultPrompt` entries.** All three starter prompts exceeded
+  the documented 128-character submission limit in both manifests, at 161, 140,
+  and 277 characters. Rewritten to 105, 102, and 93.
+
+### Added
+
+- Validator now enforces the documented OpenAI listing limits: `displayName`
+  and `shortDescription` at most 30 characters, `longDescription` at most 4000,
+  `developerName` at most 80, at most three `defaultPrompt` entries of at most
+  128 characters each, at most 20 `capabilities` of at most 120 characters,
+  description at most 4000, a recognised `category`, and required
+  `policy.installation`, `policy.authentication`, and `category` on every
+  marketplace entry.
+
 ## [2.3.0] — 2026-09-30
 
 ### Added

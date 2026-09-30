@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin.json",
   "name": "novelforge",
   "displayName": "NovelForge",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Skills-first agentic novel-writing system for long-form fiction: 43 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
   "author": {
     "name": "ShinZero",

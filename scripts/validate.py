@@ -525,6 +525,104 @@ def check_language(r: Report, skills: dict[str, str], templates: set[str]) -> No
         r.ok(section, "no en-US spellings in skills or templates")
 
 
+def check_openai_listing(r: Report, manifests: dict[str, dict]) -> None:
+    """Enforce the documented OpenAI listing-metadata limits.
+
+    `category` must be a "required category title from the dashboard", so it
+    has to be one of the published titles rather than an arbitrary string. The
+    character limits below are hard submission limits; exceeding one is a
+    packaging error, not a style preference.
+    """
+    section = "OpenAI listing"
+    valid_categories = {
+        "Productivity", "Creativity", "Developer Tools", "Business",
+        "Education", "Finance", "Health", "Data", "Communication", "Utilities",
+    }
+    limits = {
+        "displayName": 30, "shortDescription": 30, "longDescription": 4000,
+        "developerName": 80,
+    }
+    prompt_max, prompt_count = 128, 3
+    caps_count, cap_len, desc_max = 20, 120, 4000
+
+    sources = [
+        ("plugin.json", manifests.get("root (Agent Plugins / Codex)")),
+        (".codex-plugin/plugin.json", manifests.get("codex (.codex-plugin)")),
+    ]
+    checked = 0
+    for label, data in sources:
+        if not data:
+            continue
+        if label.startswith(".codex"):
+            iface = data.get("interface")
+        else:
+            iface = (data.get("extensions", {}).get("com.openai", {}) or {}).get("interface")
+        if not isinstance(iface, dict):
+            r.warn(section, f"{label}: no interface object to check")
+            continue
+        checked += 1
+
+        for field, limit in limits.items():
+            value = iface.get(field)
+            if value is None:
+                r.warn(section, f"{label}: interface.{field} missing")
+            elif len(value) > limit:
+                r.fail(section, f"{label}: interface.{field} is {len(value)} chars, limit {limit}")
+
+        category = iface.get("category")
+        if category is None:
+            r.fail(section, f"{label}: interface.category missing")
+        elif category not in valid_categories:
+            r.fail(section, f"{label}: category {category!r} is not a dashboard category "
+                            f"({', '.join(sorted(valid_categories))})")
+
+        prompts = iface.get("defaultPrompt") or []
+        if isinstance(prompts, str):
+            prompts = [prompts]
+        if len(prompts) > prompt_count:
+            r.fail(section, f"{label}: {len(prompts)} defaultPrompt entries, limit {prompt_count}")
+        for i, prompt in enumerate(prompts, 1):
+            if len(prompt) > prompt_max:
+                r.fail(section, f"{label}: defaultPrompt {i} is {len(prompt)} chars, limit {prompt_max}")
+
+        caps = iface.get("capabilities") or []
+        if len(caps) > caps_count:
+            r.fail(section, f"{label}: {len(caps)} capabilities, limit {caps_count}")
+        for c in caps:
+            if len(c) > cap_len:
+                r.fail(section, f"{label}: capability {c!r} is {len(c)} chars, limit {cap_len}")
+
+        description = data.get("description", "")
+        if len(description) > desc_max:
+            r.fail(section, f"{label}: description is {len(description)} chars, limit {desc_max}")
+
+    mk = ROOT / ".agents" / "plugins" / "marketplace.json"
+    if mk.is_file():
+        try:
+            entries = json.loads(mk.read_text(encoding="utf-8")).get("plugins", [])
+        except json.JSONDecodeError as exc:
+            r.fail(section, f"marketplace.json invalid JSON: {exc}")
+            entries = []
+        for entry in entries:
+            name = entry.get("name")
+            if "category" not in entry:
+                r.fail(section, f"marketplace entry {name!r} missing category")
+            policy = entry.get("policy")
+            if not isinstance(policy, dict):
+                r.fail(section, f"marketplace entry {name!r} missing policy")
+            else:
+                for key in ("installation", "authentication"):
+                    if key not in policy:
+                        r.fail(section, f"marketplace entry {name!r} missing policy.{key}")
+            cat = entry.get("category")
+            if cat is not None and cat not in valid_categories:
+                r.fail(section, f"marketplace entry {name!r} category {cat!r} "
+                                f"is not a dashboard category")
+
+    if checked and not any(lv == "FAIL" and sec == section for lv, sec, _ in r.rows):
+        r.ok(section, f"listing metadata within limits for {checked} manifest(s)")
+
+
 def check_catalog(r: Report) -> None:
     """The OpenCode HTTP catalog must match the canonical skills."""
     section = "OpenCode catalog"
@@ -595,6 +693,7 @@ def main() -> int:
     if args.schema:
         check_schema(report, manifests)
     check_license(report, manifests)
+    check_openai_listing(report, manifests)
     check_language(report, skills, templates)
     check_no_stale_version_labels(report, skills)
     check_catalog(report)

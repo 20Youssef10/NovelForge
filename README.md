@@ -192,6 +192,7 @@ CI runs the same validator on every push and pull request.
 | Cross-references | No dangling skill or template references; every `references/` file exists and is non-empty; every domain template reachable |
 | Manifests | Valid JSON; `name`, `version`, `license` identical across all four; required keys present |
 | Schema | `plugin.json` has no fields the Agent Plugins schema forbids |
+| OpenAI listing | `displayName`/`shortDescription` ≤ 30, `longDescription` ≤ 4000, `developerName` ≤ 80, ≤ 3 `defaultPrompt` of ≤ 128 chars, `capabilities` ≤ 20 of ≤ 120 chars, recognised `category`, required marketplace `policy` and `category` |
 | Licence | MIT, copyright holder matches the manifest author |
 | Language | No en-US spellings in skills or templates |
 | Version labels | No pre-2.0 version labels left in content |

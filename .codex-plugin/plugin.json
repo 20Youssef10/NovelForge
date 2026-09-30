@@ -1,6 +1,6 @@
 {
   "name": "novelforge",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Skills-first agentic novel-writing system for long-form fiction: 43 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
   "author": {
     "name": "ShinZero",
@@ -23,14 +23,14 @@
     "shortDescription": "Agentic novel writing system",
     "longDescription": "NovelForge v2.3 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance.",
     "developerName": "ShinZero",
-    "category": "Writing",
+    "category": "Creativity",
     "capabilities": [
       "Interactive"
     ],
     "defaultPrompt": [
-      "Act as NovelForge and use the Novel Bible, Narrative Graph, Style DNA, canon state, obligations, and project memory to plan, write, audit, and maintain my novel.",
-      "For significant work, produce a proposal and identify high-impact decisions before execution; use risk-based autonomy for safe repairs only.",
-      "Before completing major work, run the applicable quality engines for causality, consequences, agency, continuity, information control, payoff debt, pacing, tension, style drift, voice, clichés, tropes, power logic, factions, and version integrity, then report unresolved risks."
+      "Act as NovelForge. Use my Novel Bible, narrative graph, and Style DNA to plan, write, and audit my novel.",
+      "Propose a plan and flag high-impact decisions before drafting. Repair only low-risk problems yourself.",
+      "Before calling work done, run the applicable quality engines and report any unresolved risks."
     ]
   }
 }
