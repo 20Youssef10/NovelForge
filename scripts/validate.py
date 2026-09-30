@@ -42,13 +42,23 @@ MANIFESTS = {
     "github (Copilot)": ".github/plugin.json",
 }
 
-# Skills that discover skills by directory. Each must be a relative symlink
-# into skills/ so the skills cannot drift out of sync.
+# Skills that discover skills by directory.
+#
+# `.opencode/skills` and `.gemini/skills` must be relative symlinks into
+# skills/ so the skills cannot drift out of sync.
+#
+# `.agents/skills` is the exception: it is a real directory, because the skills
+# CLI (`npx skills`) and Codex CLI both install third-party skills there. When it
+# was a symlink to skills/, any `npx skills add` wrote foreign skills into
+# NovelForge's canonical source tree. It must stay a real directory.
 DISCOVERY_LINKS = {
     ".opencode/skills": "OpenCode V2 (native)",
-    ".agents/skills": "Codex CLI, OpenCode (compatibility)",
     ".gemini/skills": "Gemini CLI",
 }
+
+# Install target for the skills CLI and Codex CLI. Must exist, must be a real
+# directory, and must not be a symlink into the canonical tree.
+INSTALL_TARGET = ".agents/skills"
 
 # The orchestrator does not need to route to itself.
 ORCHESTRATOR = "novel-orchestrator"
@@ -225,6 +235,26 @@ def check_layout(r: Report, skills: dict[str, str], templates: set[str]) -> None
             r.fail(section, f"{link} resolves to {found} skills, expected {len(skills)}")
         else:
             r.ok(section, f"{link} -> {target} ({found} skills, {label})")
+
+    # The install target must stay a real directory so third-party skills
+    # installed by the skills CLI cannot land in the canonical tree.
+    install = ROOT / INSTALL_TARGET
+    if install.is_symlink():
+        r.fail(section, f"{INSTALL_TARGET} is a symlink to {os.readlink(install)!r}; "
+                        f"it must be a real directory so `npx skills add` cannot "
+                        f"write into skills/")
+    elif not install.is_dir():
+        r.fail(section, f"{INSTALL_TARGET} missing (skills CLI and Codex CLI install target)")
+    else:
+        foreign = sorted(
+            d.name for d in install.iterdir()
+            if d.is_dir() and (d / "SKILL.md").is_file() and d.name not in skills
+        )
+        if foreign:
+            r.ok(section, f"{INSTALL_TARGET} is a real directory "
+                         f"({len(foreign)} third-party skill(s) installed: {', '.join(foreign)})")
+        else:
+            r.ok(section, f"{INSTALL_TARGET} is a real directory (no third-party skills installed)")
 
     for name in ("LICENSE", "README.md"):
         if (ROOT / name).is_file():

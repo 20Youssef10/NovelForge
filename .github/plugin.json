@@ -1,7 +1,7 @@
 {
   "name": "novelforge",
   "description": "Skills-first agentic novel-writing system for long-form fiction: 43 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "author": {
     "name": "ShinZero",
     "url": "https://github.com/20Youssef10"

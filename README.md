@@ -1,4 +1,6 @@
-# NovelForge v2.3.1
+# NovelForge v2.4.0
+
+[![skills.sh](https://skills.sh/b/20Youssef10/NovelForge)](https://skills.sh/20Youssef10/NovelForge)
 
 A skills-first, agentic novel-writing system for long-form fiction. Supports fantasy, dark fantasy, mystery, thriller, psychological fiction, isekai, cultivation, murim, and hybrid projects.
 
@@ -37,11 +39,15 @@ cp -R NovelForge/skills <your-agent-skills-dir>/novelforge
 | OpenCode | Skills directory | `.opencode/skills` → `skills/` |
 | Copilot CLI / VS Code | Plugin | `.github/plugin.json` |
 | Codex CLI, ChatGPT | Plugin (portable) | `plugin.json` (canonical), `.codex-plugin/plugin.json` (fallback) |
-| Codex, ChatGPT desktop | Marketplace | `.agents/plugins/marketplace.json` |
-| Codex CLI, OpenCode | Skills directory | `.agents/skills` → `skills/` |
+| Codex CLI, ChatGPT desktop | Marketplace | `.agents/plugins/marketplace.json` |
 | Gemini CLI | Skills directory | `.gemini/skills` → `skills/` |
+| OpenCode | Skills directory | `.opencode/skills` → `skills/` |
+| Any of 20+ agents | skills.sh CLI | `npx skills add 20Youssef10/NovelForge` |
+| GitHub CLI | `gh skill install` | `gh skill install 20Youssef10/NovelForge novel-orchestrator --agent claude-code` |
 
-`skills/` is the single source of truth and sits at the standard discovery path every plugin host scans, so no manifest needs a skill list. The `.opencode/skills`, `.agents/skills`, and `.gemini/skills` entries are relative symlinks to it rather than copies, so the skills can never drift out of sync.
+`skills/` is the single source of truth and sits at the standard discovery path every plugin host scans, so no manifest needs a skill list. The `.opencode/skills` and `.gemini/skills` entries are relative symlinks to it rather than copies, so those skills can never drift out of sync.
+
+`.agents/skills/` is the one exception: it is a real directory, because the skills CLI and Codex CLI both install third-party skills there.
 
 ### OpenCode
 
@@ -70,6 +76,27 @@ OpenCode loads skills through the `skill` tool rather than injecting them into e
 ```
 
 The catalog in `catalog/` is generated from `skills/` by `scripts/build_catalog.py` and kept current by CI. It ships each skill as `<name>.md` rather than `SKILL.md` because a root-level `SKILL.md` in a catalog collapses every skill onto the single ID `SKILL` in V2.
+
+### skills.sh
+
+NovelForge is installable through [skills.sh](https://skills.sh), the open agent skills registry. The CLI detects installed agents and copies each skill into the right directory, covering 20-plus hosts at once.
+
+```bash
+# One skill
+npx skills add 20Youssef10/NovelForge --skill novel-orchestrator
+
+# The full system, into every detected agent
+npx skills add 20Youssef10/NovelForge --all
+
+# What is available, without installing
+npx skills add 20Youssef10/NovelForge --list
+```
+
+Add `--global` for user scope instead of project scope, and set `DISABLE_TELEMETRY=1` to opt out of the anonymous install counts that feed the leaderboard.
+
+Installed skills land in `.agents/skills/` and are recorded in `skills-lock.json`, so `npx skills check` and `npx skills update` work normally. That directory is a real directory, not a link to `skills/`: the CLI would otherwise write third-party skills straight into NovelForge's source, where they are indistinguishable from real engines.
+
+If you use the plugin rather than individual skills, install it as a plugin instead — the plugin carries the orchestrator, the slash commands, and the session hook, which the skills CLI does not.
 
 ## Core design
 - File-based Novel Bible as the project source of truth
@@ -185,7 +212,7 @@ CI runs the same validator on every push and pull request.
 
 | Area | Checks |
 | --- | --- |
-| Layout | Discovery symlinks present and resolving; `LICENSE` and `README` exist |
+| Layout | Discovery symlinks present and resolving; `.agents/skills` is a real directory, not a link into `skills/`; `LICENSE` and `README` exist |
 | Agent Skills spec | `name` pattern, length, matches directory; description present and within limits; line count; unknown frontmatter keys; body opens with a heading |
 | **Skill substance** | Body above a byte floor, and adds vocabulary beyond its own description |
 | Routing | Every engine appears in `novel-orchestrator` |

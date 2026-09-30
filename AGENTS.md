@@ -6,8 +6,8 @@ write a novel, load the `novel-orchestrator` skill instead.
 ## What this repository is
 
 A skills-first agent plugin. 45 skills, 57 templates, 16 slash commands, and a
-session hook, packaged for Claude Code, Copilot, Codex, ChatGPT, OpenCode, and
-Gemini CLI.
+session hook. Installable as a plugin for Claude Code, Copilot, Codex, ChatGPT,
+OpenCode, and Gemini CLI, or through the skills.sh registry for 20-plus agents.
 
 ## Run the validator before you claim anything works
 
@@ -32,11 +32,17 @@ manifests, licence/author agreement, and en-GB spelling.
   now guarded by the routing check.
 - **Stale version labels survived inside content.** Templates headed "v1.5"
   shipped inside a 2.0.1 package. There is a check for this now.
-- **Symlinked skill discovery was nearly lost.** `.agents/skills`,
-  `.opencode/skills`, and `.gemini/skills` are relative symlinks to `skills/`.
-  A plain `mv *` drops dotfiles; use `dotglob`. They are stored in git as mode
-  `120000`, and a Windows checkout without symlink support will materialise them
-  as plain text files.
+- **Symlinked skill discovery was nearly lost.** `.opencode/skills` and
+  `.gemini/skills` are relative symlinks to `skills/`. A plain `mv *` drops
+  dotfiles; use `dotglob`. They are stored in git as mode `120000`, and a
+  Windows checkout without symlink support will materialise them as plain text
+  files.
+- **A symlink in the install target corrupted the source tree.** `.agents/skills`
+  used to be a symlink to `skills/`. It is the install target for both the
+  skills CLI and Codex CLI, so `npx skills add` wrote third-party skills into
+  NovelForge's own `skills/` directory, where the routing check and catalog
+  generator then treated them as engines. It is now a real directory and the
+  validator asserts that.
 
 ## Layout
 
@@ -46,6 +52,7 @@ skills/<name>/references/         depth, loaded on demand
 templates/                        records skills maintain
 templates/project/                per-novel project scaffolding
 commands/*.md                     Claude Code slash commands
+.agents/skills/                  install target for the skills CLI; NOT a symlink
 hooks/hooks.json                  SessionStart, shared by Codex and Claude Code
 scripts/validate.py               the contract
 scripts/build_catalog.py          generates the OpenCode HTTP catalog

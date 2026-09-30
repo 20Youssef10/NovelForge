@@ -5,6 +5,38 @@ All notable changes to NovelForge are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] — 2026-09-30
+
+### Added
+
+- **skills.sh support.** NovelForge installs through the open agent skills
+  registry, which covers 20-plus agents in one command. Verified against
+  `skills` CLI v1.7.0: all 45 skills are discovered, and a scoped install lands
+  correctly with a working `skills-lock.json`.
+- **skills.sh badge** and installation section in the README, including
+  telemetry opt-out and the distinction between installing the plugin and
+  installing individual skills.
+- `gh skill install` documented in the compatibility table.
+
+### Fixed
+
+- **`.agents/skills` is no longer a symlink into the canonical `skills/` tree.**
+  That path is the install target for both the skills CLI and Codex CLI, so
+  `npx skills add <anything>` wrote third-party skills directly into
+  NovelForge's source, where they were indistinguishable from real engines and
+  were picked up by the orchestrator routing table and the OpenCode catalog.
+  Verified by installing an unrelated skill into a clone: it added a
+  46th engine to `skills/`. The directory is now real, git-ignored for
+  installed skills, and documented in place.
+- Validator now asserts `.agents/skills` is a real directory, so this cannot be
+  reintroduced, and reports any third-party skills present there.
+
+### Changed
+
+- Validator layout section distinguishes the two symlinked discovery paths
+  (`.opencode/skills`, `.gemini/skills`) from the skills CLI install target
+  (`.agents/skills`).
+
 ## [2.3.1] — 2026-09-30
 
 ### Fixed

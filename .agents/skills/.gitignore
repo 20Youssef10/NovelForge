@@ -1,0 +1,5 @@
+# Skills installed by the skills CLI (`npx skills add`) are local, not part of
+# the plugin source. skills-lock.json records them for `npx skills update`.
+*
+!.gitignore
+!README.md
