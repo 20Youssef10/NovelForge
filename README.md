@@ -34,12 +34,28 @@ cp -R NovelForge/skills <your-agent-skills-dir>/novelforge
 | Agent | Mechanism | Manifest or path in this repo |
 | --- | --- | --- |
 | Claude Code | Plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` |
+| OpenCode | Skills directory | `.opencode/skills` → `skills/` |
 | Copilot CLI / VS Code | Plugin | `.github/plugin.json` |
 | Codex CLI, ChatGPT | Plugin (portable) | `plugin.json` (canonical), `.codex-plugin/plugin.json` (fallback) |
 | Codex, ChatGPT desktop | Marketplace | `.agents/plugins/marketplace.json` |
-| Agents with no plugin layer | Skills directory | `.agents/skills` → `skills/`, `.gemini/skills` → `skills/` |
+| Codex CLI, OpenCode | Skills directory | `.agents/skills` → `skills/` |
+| Gemini CLI | Skills directory | `.gemini/skills` → `skills/` |
 
-`skills/` is the single source of truth and sits at the standard discovery path every one of these agents scans, so no manifest needs a skill list. The `.agents/skills` and `.gemini/skills` entries are relative symlinks to it rather than copies, so the skills can never drift out of sync.
+`skills/` is the single source of truth and sits at the standard discovery path every plugin host scans, so no manifest needs a skill list. The `.opencode/skills`, `.agents/skills`, and `.gemini/skills` entries are relative symlinks to it rather than copies, so the skills can never drift out of sync.
+
+### OpenCode
+
+Works out of the box — `.opencode/skills/` is OpenCode's native project discovery path and `.agents/skills/` is its compatibility path, so the same symlink serves both. Nothing to configure when the repo is your working directory.
+
+To install globally instead, drop the skills into your config directory:
+
+```bash
+git clone https://github.com/20Youssef10/NovelForge.git ~/.config/opencode/skills/novelforge
+```
+
+OpenCode derives each skill ID from its path, so `skills/novel-orchestrator/SKILL.md` is loaded as `novel-orchestrator`. The frontmatter `name` is only a display label in V2, so the directory names are what you pass to the `skill` tool.
+
+OpenCode loads skills through the `skill` tool rather than injecting them into every prompt, so skills are advertised by description and pulled in only when relevant. Its `license` and `compatibility` frontmatter fields are accepted for portability but not interpreted.
 
 ## Core design
 - File-based Novel Bible as the project source of truth
