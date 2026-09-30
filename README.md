@@ -84,3 +84,6 @@ DISCOVER → CONTEXTUALISE → PLAN → PROPOSE → APPROVE_IF_NEEDED → EXECUT
 
 ## Final principle
 Never optimise for more prose. Optimise for meaningful narrative, and report unresolved risks rather than hiding them.
+
+## Licence
+MIT — see [LICENSE](LICENSE). Copyright (c) 2026 ShinZero.

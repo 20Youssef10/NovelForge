@@ -3,8 +3,12 @@
   "name": "novelforge",
   "version": "2.1.0",
   "description": "A full agentic novel-writing operating system with narrative graph, context intelligence, character simulation, causality, consequences, pacing, tension, mystery, foreshadowing and payoff tracking, power and faction simulation, style and voice intelligence, anti-cliché and trope analysis, thematics and motifs, advanced versioning, research provenance, author preferences, multi-novel isolation, and long-term autonomous maintenance.",
+  "license": "MIT",
+  "homepage": "https://github.com/20Youssef10/NovelForge",
+  "repository": "https://github.com/20Youssef10/NovelForge",
   "author": {
-    "name": "ShinZero"
+    "name": "ShinZero",
+    "url": "https://github.com/20Youssef10"
   },
   "extensions": {
     "com.openai": {
