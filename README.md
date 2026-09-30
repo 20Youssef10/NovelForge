@@ -2,6 +2,45 @@
 
 A skills-first, agentic novel-writing system for long-form fiction. Supports fantasy, dark fantasy, mystery, thriller, psychological fiction, isekai, cultivation, murim, and hybrid projects.
 
+Every skill is a plain `SKILL.md` following the [Agent Skills](https://agentskills.io/specification) open standard, so the same 48 files work across agents without modification. Per-agent manifests are included for the major plugin hosts.
+
+## Install
+
+**As a plugin** (Claude Code, Copilot CLI, Copilot in VS Code, Codex, ChatGPT):
+
+```bash
+# Claude Code
+claude plugin marketplace add 20Youssef10/NovelForge
+claude plugin install novelforge@novelforge
+
+# Codex / ChatGPT
+codex plugin marketplace add 20Youssef10/NovelForge
+```
+
+**As a skill directory** (any Agent Skills-compatible agent):
+
+```bash
+git clone https://github.com/20Youssef10/NovelForge.git ~/.claude/skills/novelforge
+```
+
+Copy rather than symlink if your agent will not follow symlinks (notably Windows without Developer Mode):
+
+```bash
+cp -R NovelForge/skills <your-agent-skills-dir>/novelforge
+```
+
+## Compatibility
+
+| Agent | Mechanism | Manifest or path in this repo |
+| --- | --- | --- |
+| Claude Code | Plugin | `.claude-plugin/plugin.json`, `.claude-plugin/marketplace.json` |
+| Copilot CLI / VS Code | Plugin | `.github/plugin.json` |
+| Codex CLI, ChatGPT | Plugin (portable) | `plugin.json` (canonical), `.codex-plugin/plugin.json` (fallback) |
+| Codex, ChatGPT desktop | Marketplace | `.agents/plugins/marketplace.json` |
+| Agents with no plugin layer | Skills directory | `.agents/skills` → `skills/`, `.gemini/skills` → `skills/` |
+
+`skills/` is the single source of truth and sits at the standard discovery path every one of these agents scans, so no manifest needs a skill list. The `.agents/skills` and `.gemini/skills` entries are relative symlinks to it rather than copies, so the skills can never drift out of sync.
+
 ## Core design
 - File-based Novel Bible as the project source of truth
 - Targeted context retrieval instead of loading the whole novel

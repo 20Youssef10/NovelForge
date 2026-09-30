@@ -1,0 +1,18 @@
+{
+  "name": "novelforge",
+  "owner": {
+    "name": "ShinZero",
+    "url": "https://github.com/20Youssef10"
+  },
+  "metadata": {
+    "description": "NovelForge — skills-first agentic novel-writing system for long-form fiction",
+    "version": "2.1.0"
+  },
+  "plugins": [
+    {
+      "name": "novelforge",
+      "source": "./",
+      "description": "43 specialist novel-writing engines with a narrative graph, canon governance, and risk-based approval gates."
+    }
+  ]
+}
