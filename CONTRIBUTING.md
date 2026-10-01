@@ -54,6 +54,14 @@ The version appears in four manifests and must agree:
 
 Bump all four, or the validator fails. Additive changes take a minor bump; a removal or a behaviour change takes a major bump.
 
+## Adding an example
+
+`examples/` is for demonstration projects, not second sources of truth. An example
+must be *plausibly incomplete*: omit the domains a real project would not have yet,
+record why in its Novel Bible domain index, and mark undecided fields `UNRESOLVED`.
+The validator checks the example's required files, that it contains no `skills/`
+directory, and that open questions are genuinely marked unresolved.
+
 ## Adding a template
 
 Templates are records a skill maintains, not documentation. A good template:

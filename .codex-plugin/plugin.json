@@ -1,7 +1,7 @@
 {
   "name": "novelforge",
-  "version": "2.4.0",
-  "description": "Skills-first agentic novel-writing system for long-form fiction: 44 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
+  "version": "2.5.0",
+  "description": "Skills-first agentic novel-writing system for long-form fiction: 49 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, style and voice, originality, thematics, and canon governance.",
   "author": {
     "name": "ShinZero",
     "url": "https://github.com/20Youssef10"
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "NovelForge",
     "shortDescription": "Agentic novel writing system",
-    "longDescription": "NovelForge v2.4.0 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance. It routes work to 44 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, originality, thematics, and canon governance.",
+    "longDescription": "NovelForge v2.5.0 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance. It routes work to 49 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, originality, thematics, and canon governance.",
     "developerName": "ShinZero",
     "category": "Creativity",
     "capabilities": [
@@ -32,5 +32,12 @@
       "Propose a plan and flag high-impact decisions before drafting. Repair only low-risk problems yourself.",
       "Before calling work done, run the applicable quality engines and report any unresolved risks."
     ]
+  },
+  "extensions": {
+    "com": {
+      "openai": {
+        "onboardingSkill": "./skills/onboarding/SKILL.md"
+      }
+    }
   }
 }

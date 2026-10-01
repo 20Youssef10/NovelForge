@@ -1,0 +1,2 @@
+name: context-budget
+description: Enforce a token budget on context retrieval by measuring what a candidate Context Packet would load, ranking sections by decision relevance, and trimming or deferring low-value content. Use before any multi-file task, when a packet feels bloated, or when retrieval has overrun.

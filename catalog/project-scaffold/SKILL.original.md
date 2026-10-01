@@ -1,0 +1,2 @@
+name: project-scaffold
+description: Create or extend a NovelForge project by initialising the Novel Bible, copying only the domain templates the novel needs, and recording project configuration such as POV, tense, and approval strictness. Use when starting a new novel, adding a domain to an existing project, or running a novel create command.

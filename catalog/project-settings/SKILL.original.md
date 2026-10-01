@@ -1,0 +1,2 @@
+name: project-settings
+description: Read and update project-level configuration for POV model, tense, approval strictness, autonomy level, and engine selection, so these are project settings rather than facts buried in a plan. Use when configuring a project, changing approval strictness, or when the orchestrator needs to resolve what may proceed without asking.

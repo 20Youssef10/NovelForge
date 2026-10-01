@@ -1,0 +1,2 @@
+name: cross-engine-audit
+description: Compose and run a cross-engine audit that selects the right subset of NovelForge engines for a given scope, sequences them in dependency order, and consolidates findings without duplicating work. Use for project-wide reviews, arc audits, pre-publication checks, and diagnosing a novel that fails several dimensions at once.

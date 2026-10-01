@@ -65,6 +65,13 @@
       ]
     },
     {
+      "name": "context-budget",
+      "version": "3",
+      "files": [
+        "context-budget.md"
+      ]
+    },
+    {
       "name": "context-manager",
       "version": "3",
       "files": [
@@ -84,6 +91,13 @@
       "files": [
         "critique.md",
         "references/CHECK_CATALOGUE.md"
+      ]
+    },
+    {
+      "name": "cross-engine-audit",
+      "version": "3",
+      "files": [
+        "cross-engine-audit.md"
       ]
     },
     {
@@ -180,6 +194,13 @@
       ]
     },
     {
+      "name": "onboarding",
+      "version": "3",
+      "files": [
+        "onboarding.md"
+      ]
+    },
+    {
       "name": "pacing-engine",
       "version": "3",
       "files": [
@@ -213,6 +234,20 @@
       "files": [
         "power-system.md",
         "references/SCALING_AND_EXPLOITS.md"
+      ]
+    },
+    {
+      "name": "project-scaffold",
+      "version": "3",
+      "files": [
+        "project-scaffold.md"
+      ]
+    },
+    {
+      "name": "project-settings",
+      "version": "3",
+      "files": [
+        "project-settings.md"
       ]
     },
     {

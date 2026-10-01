@@ -5,9 +5,10 @@ write a novel, load the `novel-orchestrator` skill instead.
 
 ## What this repository is
 
-A skills-first agent plugin. 45 skills, 57 templates, 16 slash commands, and a
-session hook. Installable as a plugin for Claude Code, Copilot, Codex, ChatGPT,
-OpenCode, and Gemini CLI, or through the skills.sh registry for 20-plus agents.
+A skills-first agent plugin. 50 skills, 59 templates, 19 slash commands, a session
+hook, and a worked example project. Installable as a plugin for Claude Code,
+Copilot, Codex, ChatGPT, OpenCode, and Gemini CLI, or through the skills.sh
+registry for 20-plus agents.
 
 ## Run the validator before you claim anything works
 
@@ -37,6 +38,10 @@ manifests, licence/author agreement, and en-GB spelling.
   dotfiles; use `dotglob`. They are stored in git as mode `120000`, and a
   Windows checkout without symlink support will materialise them as plain text
   files.
+- **An example that is complete in every domain teaches the wrong lesson.** A real
+  project is partial, and `examples/salt-and-ember/` deliberately omits `factions/`
+  and chapters 4 to 9. Do not "helpfully" fill the gaps; the validator checks that
+  the omissions stay recorded.
 - **A symlink in the install target corrupted the source tree.** `.agents/skills`
   used to be a symlink to `skills/`. It is the install target for both the
   skills CLI and Codex CLI, so `npx skills add` wrote third-party skills into
@@ -56,6 +61,7 @@ commands/*.md                     Claude Code slash commands
 hooks/hooks.json                  SessionStart, shared by Codex and Claude Code
 scripts/validate.py               the contract
 scripts/build_catalog.py          generates the OpenCode HTTP catalog
+examples/salt-and-ember/         worked example project; must stay incomplete
 ```
 
 ## Conventions

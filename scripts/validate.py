@@ -705,6 +705,55 @@ def check_openai_listing(r: Report, manifests: dict[str, dict]) -> None:
         r.ok(section, f"listing metadata within limits for {checked} manifest(s)")
 
 
+def check_examples(r: Report) -> None:
+    """The worked example must stay consistent with the skills it demonstrates."""
+    section = "Worked example"
+    base = ROOT / "examples" / "salt-and-ember"
+    if not base.is_dir():
+        r.warn(section, "examples/salt-and-ember missing")
+        return
+
+    required = [
+        "NOVEL_BIBLE.md", "PROJECT_SETTINGS.md", "README.md",
+        "canon/facts.md", "canon/retcons.md", "canon/unresolved.md",
+        "characters/CHARACTER.md", "characters/RELATIONSHIP.md",
+        "power_system/POWER_SYSTEM.md", "obligations/INDEX.md",
+        "mysteries/MYSTERY.md", "timeline/EVENT.md",
+        "quality/FINDINGS.md", "quality-check.md",
+        "context/BUDGET.md", "audit/AUDIT_RUN.md",
+    ]
+    missing = [f for f in required if not (base / f).is_file()]
+    if missing:
+        r.fail(section, f"example missing files: {missing}")
+    else:
+        r.ok(section, f"all {len(required)} example files present")
+
+    # The example is a demonstration, not a second source of truth. It must not
+    # contain skills, which would be picked up by the discovery symlinks.
+    stray = sorted(p.name for p in (base / "skills").glob("*")) if (base / "skills").is_dir() else []
+    if stray:
+        r.fail(section, f"example contains a skills/ directory: {stray}")
+
+    # Settings that the example claims must match the vocabulary the
+    # project-settings skill defines.
+    settings = (base / "PROJECT_SETTINGS.md")
+    if settings.is_file():
+        text = settings.read_text(encoding="utf-8")
+        for level in ("strict", "standard", "permissive"):
+            if f"`{level}`" not in text:
+                r.warn(section, f"PROJECT_SETTINGS.md does not document the `{level}` level")
+        if "UNRESOLVED" not in text:
+            r.fail(section, "PROJECT_SETTINGS.md has no UNRESOLVED field; "
+                            "an example must show unset decisions as unset")
+
+    # The example advertises open questions; they must actually be marked open,
+    # or the example teaches that leaving things undecided is carelessness.
+    for rel in ("canon/unresolved.md", "mysteries/MYSTERY.md"):
+        path = base / rel
+        if path.is_file() and "UNRESOLVED" not in path.read_text(encoding="utf-8"):
+            r.warn(section, f"{rel} records open questions but never marks them UNRESOLVED")
+
+
 def check_catalog(r: Report) -> None:
     """The OpenCode HTTP catalog must match the canonical skills."""
     section = "OpenCode catalog"
@@ -779,6 +828,7 @@ def main() -> int:
     check_openai_listing(report, manifests)
     check_language(report, skills, templates)
     check_no_stale_version_labels(report, skills)
+    check_examples(report)
     check_catalog(report)
 
     print(report.render())

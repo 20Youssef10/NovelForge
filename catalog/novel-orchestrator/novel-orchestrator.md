@@ -20,7 +20,17 @@ If no project exists, initialise from `templates/project/` and populate only the
 
 ## Context
 
-Always route through `context-manager` for multi-file work. Retrieve canon layers, graph neighbours, open obligations, character and reader knowledge, Style DNA, author preferences, branch state, and research provenance. Never load the whole Novel Bible by default — targeted retrieval is a correctness requirement, not an optimisation.
+Always route through `context-manager` for multi-file work, and through `context-budget` to size the packet. Retrieve canon layers, graph neighbours, open obligations, character and reader knowledge, Style DNA, author preferences, branch state, and research provenance. Never load the whole Novel Bible by default — targeted retrieval is a correctness requirement, not an optimisation.
+
+## Configuration
+
+Read `PROJECT_SETTINGS.md` before routing. It carries the POV model, tense, and approval strictness that govern the decisions below. An `UNRESOLVED` setting is never guessed; treat it as a question for the author.
+
+## Approval policy
+
+Plan significant arcs, chapters, and scenes before full drafting. Present the proposal and surface unresolved high-impact decisions. Do not proceed to full drafting until the author approves the plan. Low-risk local repairs may be automatic. High-impact changes require explicit approval before execution, not after.
+
+Approval strictness in `PROJECT_SETTINGS.md` may tighten this for MEDIUM-risk work. It can never waive the HIGH-risk gate.
 
 ## Routing
 
@@ -28,7 +38,11 @@ Route only to the specialists the task requires. Use `context-manager` for any m
 
 | Domain | Route to |
 | --- | --- |
-| Project intake from an existing draft | `manuscript-import` |
+| Project setup from scratch | `project-scaffold`, `project-settings` |
+| Existing draft intake | `manuscript-import` |
+| Project-wide or multi-engine audit | `cross-engine-audit` |
+| Context sizing and trimming | `context-budget` |
+| First-time user orientation | `onboarding` |
 | Architecture, saga/arc/chapter/scene planning | `novel-planner`, `plot-engineering` |
 | Character construction and identity | `character-development`, `character-arc-engine` |
 | Decision plausibility and behaviour | `character-simulation` |
@@ -60,15 +74,13 @@ Route only to the specialists the task requires. Use `context-manager` for any m
 
 For a project-wide audit, compose a cross-engine audit from the relevant rows rather than loading every file indiscriminately.
 
-## Approval policy
-
-Plan significant arcs, chapters, and scenes before full drafting. Present the proposal and surface unresolved high-impact decisions. Do not proceed to full drafting until the author approves the plan. Low-risk local repairs may be automatic. High-impact changes require explicit approval before execution, not after.
-
 ## Risk levels
 
 - **LOW** — grammar, repetition, formatting, metadata, local transitions, obvious local continuity repairs, non-canonical notes.
 - **MEDIUM** — bounded scene or sequence restructuring, limited behavioural adjustment, localised style corrections, single-obligation resolution with no ripple.
 - **HIGH** — canon or retcon, major death, ending change, major relationship restructuring, global timeline shift, power-system rule change, major faction state change, cross-arc dependency change, research claim promoted to canon, branch merge, cross-novel memory transfer, large-scale style change.
+
+For MEDIUM work, consult approval strictness in `PROJECT_SETTINGS.md`: `strict` asks first, `standard` proceeds when clearly local and reversible, `permissive` proceeds. HIGH-risk work always asks, at every strictness level.
 
 ## Autonomous loop
 

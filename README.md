@@ -1,4 +1,4 @@
-# NovelForge v2.4.0
+# NovelForge v2.5.0
 
 [![skills.sh](https://skills.sh/b/20Youssef10/NovelForge)](https://skills.sh/20Youssef10/NovelForge)
 
@@ -113,7 +113,7 @@ If you use the plugin rather than individual skills, install it as a plugin inst
 
 ## Engines
 
-**Orchestration and state** — `novel-orchestrator`, `context-manager`, `quality-gate`, `canon-manager`, `workspace-manager`, `author-profile`, `memory-manager`, `version-control`
+**Orchestration and state** — `novel-orchestrator`, `context-manager`, `context-budget`, `quality-gate`, `canon-manager`, `workspace-manager`, `author-profile`, `memory-manager`, `version-control`
 
 **Planning and structure** — `novel-planner`, `plot-engineering`, `pacing-engine`, `tension-engine`, `theme-engine`, `symbolism-motif`
 
@@ -131,13 +131,15 @@ If you use the plugin rather than individual skills, install it as a plugin inst
 
 **Research and review** — `research`, `research-provenance`, `critique`
 
-**Intake** — `manuscript-import`
+**Project setup** — `project-scaffold`, `project-settings`, `onboarding`
 
-45 skills in total: 44 engines plus the orchestrator. Five larger engines also ship a `references/` file holding the depth that is not needed until the skill is actually working on a problem.
+**Intake and audit** — `manuscript-import`, `cross-engine-audit`
+
+50 skills in total: 49 engines plus the orchestrator. Five larger engines also ship a `references/` file holding the depth that is not needed until the skill is actually working on a problem.
 
 ## Commands
 
-Claude Code users get 16 slash commands from `commands/`: `novel-create`, `novel-import`, `novel-status`, `novel-report`, `plan`, `write`, `critique`, `gate`, `continuity`, `canon-impact`, `branch`, `payoff`, `mystery`, `power`, `style`, `series`.
+Claude Code users get 19 slash commands from `commands/`: `novel-create`, `novel-import`, `novel-status`, `novel-report`, `plan`, `write`, `critique`, `gate`, `audit`, `setup`, `budget`, `continuity`, `canon-impact`, `branch`, `payoff`, `mystery`, `power`, `style`, `series`.
 
 Other agents get the same workflows by asking in natural language; `templates/COMMANDS.md` is the full command reference.
 
@@ -192,6 +194,18 @@ DISCOVER → CONTEXTUALISE → PLAN → PROPOSE → APPROVE_IF_NEEDED → EXECUT
 
 ## Final principle
 Never optimise for more prose. Optimise for meaningful narrative, and report unresolved risks rather than hiding them.
+
+## Worked example
+
+`examples/salt-and-ember/` is a small, complete, fictional project showing what filled records look like — canon with dependencies, a power system with real limits, a deliberately unsolved mystery, a findings ledger that accumulates, a measured context packet, and a chapter audit recording the engines that were skipped and why.
+
+It is deliberately incomplete. `factions/` is absent because those institutions are not yet modelled, and `faction-simulation` is disabled in its settings so it cannot confidently describe them. Chapters 1 to 3 are planned; 4 to 9 are not. An example complete in every domain would misrepresent how a real project is maintained.
+
+```bash
+cp -R examples/salt-and-ember /tmp/my-novel-project
+```
+
+Then ask for something the records already constrain. A good test: *"What does Chapter 7 owe the reader?"* — an agent that calls it manageable has not read `obligations/INDEX.md`.
 
 ## Licence
 MIT — see [LICENSE](LICENSE). Copyright (c) 2026 ShinZero.

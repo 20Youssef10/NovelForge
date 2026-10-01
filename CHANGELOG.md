@@ -5,6 +5,49 @@ All notable changes to NovelForge are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] — 2026-10-01
+
+### Added
+
+- **`context-budget`** — real token-budget discipline. Per-scope ceilings (scene
+  8,000, chapter 20,000, arc 60,000, novel 120,000), a dependency-free estimation
+  method, an eleven-rank relevance ordering, and a trim-by-deferral sequence that
+  names what is never sacrificed. Rationale for deferral is recorded, because an
+  unexplained omission is indistinguishable from a mistake.
+- **`project-scaffold`** — the skill `/novel create` lacked. Eight phases from
+  author questions to a minimal default set, with a rule that a domain is created
+  only when a template exists to populate it. Scaffolding is MEDIUM risk and may
+  proceed without approval; filling canon afterwards is not scaffolding.
+- **`project-settings`** — POV, tense, approval strictness, autonomy ceiling, and
+  engine selection as project configuration rather than plan prose. Strictness
+  governs MEDIUM risk only; HIGH-risk work always asks, and no setting waives that.
+- **`cross-engine-audit`** — one call that selects the right engine subset per scope,
+  sequences them so later stages consume earlier findings, and consolidates output
+  into stable finding IDs. Records skipped engines and why, and treats engine
+  disagreement as an authorial question rather than reconciling it automatically.
+- **`onboarding`** — first-time orientation. Opens with one question, delivers a
+  first artefact rather than an architecture tour, explains only three concepts
+  before the first draft, and routes to scaffold, import, or series setup.
+- **`examples/salt-and-ember/`** — a complete worked project with 16 files, showing
+  filled canon with dependencies, a power system with enforceable costs, a
+  deliberately unsolved mystery, an accumulating findings ledger, a measured and
+  trimmed context packet, and a chapter audit with an unresolved engine
+  disagreement. Deliberately incomplete, with the omissions recorded.
+- **`PROJECT_SETTINGS.md`** and **`audit/AUDIT_RUN.md`** templates.
+- **3 new slash commands** — `audit`, `setup`, `budget`.
+- **`extensions.com.openai.onboardingSkill`** wired to the onboarding skill in both
+  OpenAI manifests.
+
+### Changed
+
+- `novel-orchestrator` gains Configuration and a context-budget routing rule, and
+  reads approval strictness from settings. A duplicated Approval policy section was
+  merged into one.
+- `novel-create` routes through `project-scaffold` and records configuration.
+- Validator checks the worked example: required files present, no stray `skills/`
+  directory, all three strictness levels documented, and open questions genuinely
+  marked `UNRESOLVED`.
+
 ## [2.4.0] — 2026-09-30
 
 ### Added

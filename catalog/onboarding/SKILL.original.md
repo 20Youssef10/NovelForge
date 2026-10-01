@@ -1,0 +1,2 @@
+name: onboarding
+description: Guide a first-time user through starting a novel with NovelForge, from installation check through scaffolding, the first plan, and the first drafted scene. Use when someone reports having just installed NovelForge, asks how to begin, or seems unsure what to do next.
