@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "NovelForge — skills-first agentic novel-writing system for long-form fiction",
-    "version": "2.5.0"
+    "version": "2.6.0"
   },
   "plugins": [
     {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "novelforge",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "A full agentic novel-writing operating system with narrative graph, context intelligence, character simulation, causality, consequences, pacing, tension, mystery, foreshadowing and payoff tracking, power and faction simulation, style and voice intelligence, anti-cliché and trope analysis, thematics and motifs, advanced versioning, research provenance, author preferences, multi-novel isolation, and long-term autonomous maintenance.",
   "license": "MIT",
   "homepage": "https://github.com/20Youssef10/NovelForge",
@@ -10,29 +10,43 @@
     "name": "ShinZero",
     "url": "https://github.com/20Youssef10"
   },
+  "keywords": [
+    "fiction",
+    "novel",
+    "worldbuilding",
+    "narrative",
+    "long-form",
+    "creative-writing"
+  ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "NovelForge",
         "shortDescription": "Agentic novel writing system",
-        "longDescription": "NovelForge v2.5.0 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance. It routes work to 49 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, originality, thematics, and canon governance.",
+        "longDescription": "NovelForge v2.6.0 is a long-form fiction operating system built around a file-based Novel Bible, narrative graph, style and voice intelligence, mystery and payoff tracking, advanced versioning, research provenance, multi-novel isolation, and long-term autonomous maintenance. It routes work to 49 specialist engines covering planning, worldbuilding, characterisation, scene and dialogue writing, structure, information control, originality, thematics, and canon governance.",
         "developerName": "ShinZero",
         "category": "Creativity",
         "capabilities": [
           "Interactive"
         ],
+        "websiteURL": "https://github.com/20Youssef10/NovelForge",
+        "supportURL": "https://github.com/20Youssef10/NovelForge/issues",
+        "privacyPolicyURL": "https://github.com/20Youssef10/NovelForge/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/20Youssef10/NovelForge/blob/main/TERMS.md",
         "defaultPrompt": [
           "Act as NovelForge. Use my Novel Bible, narrative graph, and Style DNA to plan, write, and audit my novel.",
           "Propose a plan and flag high-impact decisions before drafting. Repair only low-risk problems yourself.",
           "Before calling work done, run the applicable quality engines and report any unresolved risks."
-        ]
+        ],
+        "brandColor": "#D2622F",
+        "brandColorDark": "#F0A868",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo-dark.png",
+        "composerIconDark": "./assets/composer-icon-dark.png",
+        "composerIcon": "./assets/composer-icon.png"
       },
-      "hooks": "./hooks/hooks.json"
-    },
-    "com": {
-      "openai": {
-        "onboardingSkill": "./skills/onboarding/SKILL.md"
-      }
+      "hooks": "./hooks/hooks.json",
+      "onboardingSkill": "./skills/onboarding/SKILL.md"
     }
   }
 }

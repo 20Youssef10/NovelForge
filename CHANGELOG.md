@@ -5,6 +5,58 @@ All notable changes to NovelForge are recorded here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0] — 2026-10-01
+
+### Added
+
+- **Icons.** `logo.svg`, `logo.png`, `logo-dark.png`, `composer-icon.png`, and
+  `composer-icon-dark.png` — 512×512, well within the 5 MiB limit, referenced from
+  both OpenAI manifests. Codex package validation requires `logo` and
+  `composerIcon`, so without these the package could not be submitted to the
+  ChatGPT/Codex directory despite being public on GitHub.
+- **`PRIVACY.md`** and **`TERMS.md`**, referenced by the listing URLs the manifests
+  declare. PRIVACY documents the session hook's exact behaviour and states that the
+  plugin makes no network calls.
+- Listing metadata: `brandColor`/`brandColorDark`, and `websiteURL`,
+  `supportURL`, `privacyPolicyURL`, `termsOfServiceURL`.
+- Validator now enforces the documented icon constraints: both fields present,
+  `./`-prefixed paths that resolve, square, at least 48×48, a supported format,
+  within the size limit, and a `viewBox` for SVGs. It also checks that declared
+  GitHub listing URLs point at files that exist. Two negative tests confirm the
+  square and required-field checks fire.
+
+### Fixed
+
+- **A malformed `extensions` namespace in both OpenAI manifests.** A script had
+  walked `["com", "openai"]` as two literal keys, producing
+  `extensions.com.openai` alongside the correct `extensions["com.openai"]`. The
+  `onboardingSkill` field added in 2.5.0 landed in the wrong object, so neither
+  manifest declared it in a namespace any host reads. Both manifests were rebuilt
+  with a single `com.openai` namespace. The validator did not catch this because
+  `extensions` is an open map in the schema and nothing checked the nested shape.
+
+### Dogfooding
+
+NovelForge v2.5.0 was run against an 18-chapter Arabic manuscript
+(الجرس تحت الماء الأسود, ~20,000 words) as a live test of `onboarding` →
+`project-scaffold` → `manuscript-import`. Results are in the working notes for that
+project; the substantive findings are recorded here because one of them concerns the
+system rather than the novel.
+
+- **`manuscript-import` produced a fabricated detail.** Post-intake verification
+  re-tested all 36 of intake's verbatim quotations against the source corpus: 32
+  verified, 4 missed. Three were transcription or normalisation errors in the derived
+  records. One was content the manuscript does not contain — a third guard title,
+  invented while compressing a passage that names only two. Nothing in the validator
+  can detect this class of error, because a fabricated detail in a derived record is
+  structurally indistinguishable from a correct one. It was caught only because
+  every fact was cited to a chapter, which made verification possible at all.
+- Intake otherwise behaved as designed: no invented canon, four genuinely unresolved
+  questions surfaced, three of four leads recorded as `UNRESOLVED` rather than
+  guessed, single POV and past tense confirmed across all 18 chapters, and the
+  `/novel create` → scaffold path produced a minimal correct structure rather than
+  the full template set.
+
 ## [2.5.0] — 2026-10-01
 
 ### Added

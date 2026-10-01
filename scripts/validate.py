@@ -26,6 +26,11 @@ import re
 import sys
 import urllib.error
 import urllib.request
+
+try:
+    from PIL import Image
+except ImportError:  # Pillow is optional; icon checks degrade to existence + suffix
+    Image = None
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -705,6 +710,88 @@ def check_openai_listing(r: Report, manifests: dict[str, dict]) -> None:
         r.ok(section, f"listing metadata within limits for {checked} manifest(s)")
 
 
+def check_icons(r: Report, manifests: dict[str, dict]) -> None:
+    """Icons must satisfy the documented submission constraints.
+
+    Square, at least 48x48, PNG/JPEG/WebP/SVG, at most 5 MiB, and referenced by a
+    ./ prefixed path that resolves from the plugin root. Codex package validation
+    requires both logo and composerIcon; without them the package is public on
+    GitHub but cannot be submitted to the ChatGPT/Codex directory.
+    """
+    section = "Icons"
+    supported = {".png", ".jpg", ".jpeg", ".webp", ".svg"}
+    max_bytes = 5 * 1024 * 1024
+
+    def check_image(path: Path) -> str | None:
+        if not path.is_file():
+            return "file does not exist"
+        if path.suffix.lower() not in supported:
+            return f"unsupported format {path.suffix}"
+        size = path.stat().st_size
+        if size > max_bytes:
+            return f"{size / 1024 / 1024:.1f} MiB exceeds the 5 MiB limit"
+        if path.suffix.lower() != ".svg":
+            try:
+                with Image.open(path) as im:
+                    w, h = im.size
+                if w != h:
+                    return f"not square ({w}x{h})"
+                if w < 48:
+                    return f"{w}x{h} is below the 48x48 minimum"
+            except Exception as exc:  # unreadable image
+                return f"could not be read: {exc}"
+        else:
+            head = path.read_text(encoding="utf-8", errors="replace")[:2000]
+            if "viewBox" not in head:
+                return "SVG has no viewBox, so it has no defined square size"
+        return None
+
+    for label, data in manifests.items():
+        if not data:
+            continue
+        iface = data.get("interface")
+        if iface is None:
+            iface = (data.get("extensions", {}).get("com.openai", {}) or {}).get("interface")
+        if not isinstance(iface, dict):
+            continue
+        for field in ("logo", "composerIcon"):
+            ref = iface.get(field)
+            if not ref:
+                r.fail(section, f"{label}: interface.{field} missing; Codex validation requires it")
+                continue
+            if not ref.startswith("./"):
+                r.fail(section, f"{label}: interface.{field} must start with './', got {ref!r}")
+                continue
+            problem = check_image(ROOT / ref[2:])
+            if problem:
+                r.fail(section, f"{label}: interface.{field} -> {ref}: {problem}")
+        for field in ("logoDark", "composerIconDark"):
+            ref = iface.get(field)
+            if ref and ref.startswith("./"):
+                problem = check_image(ROOT / ref[2:])
+                if problem:
+                    r.fail(section, f"{label}: interface.{field} -> {ref}: {problem}")
+
+    # Listing URLs the manifest advertises must resolve to a real file.
+    for label, data in manifests.items():
+        if not data:
+            continue
+        iface = data.get("interface") or (data.get("extensions", {}).get("com.openai", {}) or {}).get("interface")
+        if not isinstance(iface, dict):
+            continue
+        for field in ("privacyPolicyURL", "termsOfServiceURL", "supportURL"):
+            url = iface.get(field)
+            if not url:
+                continue
+            if "github.com" in url and "/blob/" in url:
+                name = url.rsplit("/", 1)[-1]
+                if not (ROOT / name).is_file():
+                    r.fail(section, f"{label}: interface.{field} points at {name}, which does not exist")
+
+    if not any(lv == "FAIL" and sec == section for lv, sec, _ in r.rows):
+        r.ok(section, "logo and composerIcon present, square, >=48x48, within size limit")
+
+
 def check_examples(r: Report) -> None:
     """The worked example must stay consistent with the skills it demonstrates."""
     section = "Worked example"
@@ -826,6 +913,7 @@ def main() -> int:
         check_schema(report, manifests)
     check_license(report, manifests)
     check_openai_listing(report, manifests)
+    check_icons(report, manifests)
     check_language(report, skills, templates)
     check_no_stale_version_labels(report, skills)
     check_examples(report)

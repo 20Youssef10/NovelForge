@@ -1,4 +1,4 @@
-# NovelForge v2.5.0
+# NovelForge v2.6.0
 
 [![skills.sh](https://skills.sh/b/20Youssef10/NovelForge)](https://skills.sh/20Youssef10/NovelForge)
 
@@ -208,7 +208,8 @@ cp -R examples/salt-and-ember /tmp/my-novel-project
 Then ask for something the records already constrain. A good test: *"What does Chapter 7 owe the reader?"* — an agent that calls it manageable has not read `obligations/INDEX.md`.
 
 ## Licence
-MIT — see [LICENSE](LICENSE). Copyright (c) 2026 ShinZero.
+MIT — see [LICENSE](LICENSE). Copyright (c) 2026 ShinZero. See also
+[PRIVACY.md](PRIVACY.md) and [TERMS.md](TERMS.md).
 
 ## Development
 
@@ -233,6 +234,7 @@ CI runs the same validator on every push and pull request.
 | Cross-references | No dangling skill or template references; every `references/` file exists and is non-empty; every domain template reachable |
 | Manifests | Valid JSON; `name`, `version`, `license` identical across all four; required keys present |
 | Schema | `plugin.json` has no fields the Agent Plugins schema forbids |
+| Icons | `logo` and `composerIcon` present, `./`-prefixed, square, ≥ 48×48, supported format, ≤ 5 MiB; declared GitHub listing URLs resolve |
 | OpenAI listing | `displayName`/`shortDescription` ≤ 30, `longDescription` ≤ 4000, `developerName` ≤ 80, ≤ 3 `defaultPrompt` of ≤ 128 chars, `capabilities` ≤ 20 of ≤ 120 chars, recognised `category`, required marketplace `policy` and `category` |
 | Licence | MIT, copyright holder matches the manifest author |
 | Language | No en-US spellings in skills or templates |
