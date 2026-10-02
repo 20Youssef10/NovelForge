@@ -22,7 +22,7 @@ codex plugin marketplace add 20Youssef10/NovelForge
 **As a skill directory** (any Agent Skills-compatible agent):
 
 ```bash
-git clone https://github.com/20Youssef10/NovelForge.git ~/.claude/skills/novelforge
+git clone https://github.com/20Youssef10/NovelForge.git ~/.agents/skills/novelforge
 ```
 
 Copy rather than symlink if your agent will not follow symlinks (notably Windows without Developer Mode):
